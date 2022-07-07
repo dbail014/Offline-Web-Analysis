@@ -6,3 +6,4 @@ Thursday 1
 
 * [Stories](https://trello.com/invite/b/TBR89wEb/ea18b25b95216d7d1f95d55cb45668ef/offline-web-analysis)
 
+![Alt text](initial_uml.svg?raw=true "Title")
