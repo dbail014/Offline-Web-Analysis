@@ -1,4 +1,4 @@
-package main.java;
+package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 public abstract class Resource implements Cloneable {
 
@@ -9,8 +9,7 @@ public abstract class Resource implements Cloneable {
 
     // TODO
     // Default Constructor
-    public Resource()
-    {
+    public Resource() {
         this.URIpath = "";
         this.classification = Classification.EXTERNAL;
         this.localPageNumber = 0;
@@ -21,8 +20,7 @@ public abstract class Resource implements Cloneable {
      * 
      * @param _name desired name
      */
-    public Resource(String _URIpath, Classification _classification, int _localPageNumber)
-    {
+    public Resource(String _URIpath, Classification _classification, int _localPageNumber) {
         this.URIpath = _URIpath;
         this.classification = _classification;
         this.localPageNumber = _localPageNumber;
@@ -51,8 +49,7 @@ public abstract class Resource implements Cloneable {
      * 
      * @return current classification
      */
-    public Classification getClassification() 
-    {
+    public Classification getClassification() {
         return this.classification;
     }
 
@@ -61,8 +58,7 @@ public abstract class Resource implements Cloneable {
      * 
      * @param _classification replacement classification
      */
-    public void setClassification(Classification _classification)
-    {
+    public void setClassification(Classification _classification) {
         this.classification = _classification;
     }
 
