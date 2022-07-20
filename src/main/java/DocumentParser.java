@@ -11,12 +11,6 @@ import java.io.IOException;
     
 
 public class DocumentParser {
-
-    // private String rawHTML;
-
-    public static void main(String[] ars) throws IOException {
-        Document testDoc = Jsoup.connect("http://example.com").get();
-        System.out.println(testDoc.title());
-    }
+    //TODO
 }
 
