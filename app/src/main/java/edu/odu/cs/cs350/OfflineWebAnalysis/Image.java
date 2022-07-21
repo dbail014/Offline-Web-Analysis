@@ -67,7 +67,7 @@ public class Image extends Resource {
     }
 
     /*
-     * Check for logical equivalence--based on TODO
+     * Check for logical equivalence
      * 
      * @param rhs object for which a comparison is desired
      */
