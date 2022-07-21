@@ -23,29 +23,44 @@ public class DocumentParser {
         // I would use downloaded html lecture notes until/unless Professor comes out with some testing files for us.
     public static void main(String[] args) throws IOException {
         Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        String url = args[0];
-        File input = new File(url);
+        String path = args[0];
+        File input = new File(path);
         Document doc = Jsoup.parse(input);
-        DocumentParser p = new DocumentParser(doc);
+        DocumentParser p = new DocumentParser(doc, path);
         Vector<Image> lImages = new Vector<Image>(p.getImageVector());
         System.out.println(lImages.toString());
     }
 
+    String localPath;
     protected Vector<Image> v = new Vector<Image>();
 
-    public DocumentParser(Document doc) {
+    public DocumentParser(Document doc, String lPath) {
+        setLocalPath(lPath);
         Elements media = doc.select("[src]");
         this.setImageVector(media);
     }
 
+    
+    // TODO -- Full documentation for getters/setters.
+
+    // Setter for local path string
+    public void setLocalPath(String lPath) {
+        this.localPath = lPath;
+    }
+    
+    // Getter for local path string
+    public String getLocalPath() {
+        return this.localPath;
+    }
+
     // Setter for image vector.
-    // TODO -- Better documentation.
     public void setImageVector(Elements media) {
         for (Element src : media) {
             this.v.addElement(imageProcessor(src));
         }
     }
 
+    // Getter for image vector
     public Vector<Image> getImageVector() {
         return this.v;
     }
