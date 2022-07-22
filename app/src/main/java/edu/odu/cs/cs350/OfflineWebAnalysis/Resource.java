@@ -6,17 +6,16 @@ public abstract class Resource implements Cloneable {
     protected String URIpath;
     protected Classification classification;
 
-    // TODO
-    // Default Constructor
+    /*
+     * Default constructor
+     */
     public Resource() {
         this.URIpath = "";
         this.classification = Classification.EXTERNAL;
     }
 
     /*
-     * @Description
-     * 
-     * @param _name desired name
+     * Non-default constructor
      */
     public Resource(String _URIpath, Classification _classification) {
         this.URIpath = _URIpath;
