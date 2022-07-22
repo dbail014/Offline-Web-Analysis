@@ -8,18 +8,30 @@ import org.junit.jupiter.api.BeforeEach;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class TestImage {
     Image testImage;
+    Image emptyImage;
+    URI test1Uri;
+    URI test2URI;
+    URI test3URI;
 
     @BeforeEach
-    public void setUp() { // DONE
-        testImage = new Image();
+    public void setUp() throws URISyntaxException { // DONE
+        emptyImage = new Image();
+        testImage = new Image(); 
+
+        test1Uri = new URI("./user/someDir/file.html");
+        test2URI = new URI("./user/OtherDir/file.html");
+        test3URI = new URI("www.google.com");
         
         testImage.setClassification(Classification.INTERNAL);
         testImage.setFileSize(1000);
-        testImage.setURIPath("C:\\Users\\person\\Desktop\\Agile_Methods.html");
+        testImage.setURIPath(test1Uri);
     }
 
     @Test
@@ -27,22 +39,20 @@ public class TestImage {
         Image defaultImage = new Image();
         Resource generic = (Resource) defaultImage;
 
-        // Checks
+        // Checks -- No check for URI because there is no empty value for URI
         assertThat(defaultImage.getClassification(), equalTo(Classification.EXTERNAL));
         assertThat(defaultImage.getFileSize(), equalTo(0L));
-        assertThat(defaultImage.getURIPath(), equalTo(""));
         assertThat(generic.getClassification(), equalTo(Classification.EXTERNAL));
-        assertThat(generic.getURIPath(), equalTo(""));
     }
 
     @Test
     public void testNonDefaultConstructor() {
-        Image nonDefaultImage = new Image("C:\\Users\\person\\Desktop\\Agile_Methods.html", Classification.INTERNAL, 100);
+        Image nonDefaultImage = new Image(test2URI, Classification.INTERNAL, 100);
 
         // Checks
         assertThat(nonDefaultImage.getClassification(), equalTo(Classification.INTERNAL));
         assertThat(nonDefaultImage.getFileSize(), equalTo(100L));
-        assertThat(nonDefaultImage.getURIPath(), equalTo("C:\\Users\\person\\Desktop\\Agile_Methods.html"));
+        assertThat(nonDefaultImage.getURIPath(), equalTo(test2URI));
     }
     
     @Test
@@ -52,7 +62,7 @@ public class TestImage {
         // Checks
         assertThat(copy.getClassification(), equalTo(Classification.INTERNAL));
         assertThat(copy.getFileSize(), equalTo(1000L));
-        assertThat(copy.getURIPath(), equalTo("C:\\Users\\person\\Desktop\\Agile_Methods.html"));
+        assertThat(copy.getURIPath(), equalTo(test1Uri));
         
     }
 
@@ -63,14 +73,7 @@ public class TestImage {
         // Checks
         assertThat(copy.getClassification(), equalTo(Classification.INTERNAL));
         assertThat(copy.getFileSize(), equalTo(1000L));
-        assertThat(copy.getURIPath(), equalTo("C:\\Users\\person\\Desktop\\Agile_Methods.html"));
-    }
-
-    @Test
-    public void testToString() {
-        String expected = "{IMG:\n  URI: " + "C:\\Users\\person\\Desktop\\Agile_Methods.html" + ",\n  Classification: " + "internal" + ",\n  Size: " + "1000" + "}\n";
-
-        assertThat(testImage.toString(), equalTo(expected));
+        assertThat(copy.getURIPath(), equalTo(test1Uri));
     }
 
     @Test
@@ -87,7 +90,7 @@ public class TestImage {
         imitation.setFileSize(1000L);
         assertThat(testImage, is(equalTo(imitation)));
 
-        imitation.setURIPath("C:\\Users\\person\\Desktop\\Agile_Methods.html");
+        imitation.setURIPath(test1Uri);
         assertThat(testImage, is(equalTo(imitation)));
         
         imitation = (Image) testImage.clone();
@@ -99,7 +102,7 @@ public class TestImage {
         assertThat(testImage, is(not(equalTo(imitation))));
 
         imitation = (Image) testImage.clone();
-        imitation.setURIPath("www.google.com");
+        imitation.setURIPath(test3URI);
         assertThat(testImage, is(not(equalTo(imitation))));
     }
 

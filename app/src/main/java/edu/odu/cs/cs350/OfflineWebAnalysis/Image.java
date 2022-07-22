@@ -1,5 +1,6 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
+import java.lang.*;
 import java.net.URI;
 
 public class Image extends Resource {
@@ -105,9 +106,9 @@ public class Image extends Resource {
     @Override
     public int hashCode()
     {
-        return this.URIpath.hashCode() 
+        return (this.URIpath != null ? this.URIpath.hashCode() : 0)
         + this.classification.hashCode()
-        + (int)this.fileSize;
+        + Long.hashCode(this.fileSize);
     }
 
     /*
