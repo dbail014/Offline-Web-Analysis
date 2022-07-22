@@ -1,0 +1,362 @@
+
+<!-- saved from url=(0069)https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link href="./Agile_Methods_files/md-scroll.css" media="screen, projection, print" rel="stylesheet" type="text/css"><link href="./Agile_Methods_files/md-scroll-ext.css" media="screen, projection, print" rel="stylesheet" type="text/css"><meta content="width=device-width, initial-scale=1" name="viewport"><link href="./Agile_Methods_files/googlecode.css" rel="stylesheet"><script src="./Agile_Methods_files/highlight.pack.js.download"> </script><script>hljs.initHighlightingOnLoad();</script><script src="./Agile_Methods_files/md-scroll.js.download" type="text/javascript"> </script><script src="./Agile_Methods_files/md-scroll-ext.js.download" type="text/javascript"> </script><script src="./Agile_Methods_files/rawdeflate.js.download" type="text/javascript"> </script><script src="./Agile_Methods_files/plantuml.js.download" type="text/javascript"> </script><script src="./Agile_Methods_files/mermaid.min.js.download" type="text/javascript"> </script><script type="text/javascript">
+             window.MathJax = {
+               tex2jax: {
+               inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+               processEscapes: true
+             }
+           };
+           </script><script src="./Agile_Methods_files/MathJax.js.download" type="text/javascript"> </script><title>Agile Methods</title><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head><body><div id="MathJax_Message" style="display: none;"></div><script>sshowControl0 = { counter: 1,
+             showNumber: 0, max: 1};
+             window.onhashchange = hashHasChanged;</script><div class="navHeader" id="slideshowControlA0"><table class="navHeader"><tbody><tr class="slideshowcontrol"><td class="slideshowcontrolLeft"></td><td class="slideshowcontrolMiddle">
+<a class="imgLink" href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Directory/outline/index.html" title="Course home/outline"><img src="./Agile_Methods_files/home.png"></a>
+<a href="mailto:tkennedy@cs.odu.edu?subject=CS350%2C%20Agile%20Methods"><img src="./Agile_Methods_files/email.png" title="Email to instructor"></a><span style="margin: 0 32px;">
+<a class="imgLink" href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/agile__slides.html"><img src="./Agile_Methods_files/slides.png" title="Slides for lectures"></a></span></td><td class="slideshowcontrolRight"></td></tr></tbody></table></div><div class="mainBody"><div class="titleblock"><h1 class="title">Agile Methods</h1><h2 class="author">Steven J Zeil:</h2><div class="date">Last modified: Nov 30, 2020</div></div><div class="toc">Contents:<div class="toc-h1"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#agile-as-a-social-entity">1 Agile as a Social Entity</a></div><div class="toc-h2"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#agile-development-is">1.1 Agile Development is</a></div><div class="toc-h2"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#variations">1.2 Variations</a></div><div class="toc-h1"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#common-practices-of-agile-development">2 Common Practices of Agile Development</a></div><div class="toc-h2"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#fundamentals">2.1 Fundamentals</a></div><div class="toc-h2"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#common-practices">2.2 Common Practices</a></div><div class="toc-h2"><a href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/index.html#common-intersections">2.3 Common Intersections</a></div></div><p><strong>Abstract</strong></p>
+    <p><span class="firstterm">Agile methods</span> are a modern approach to incremental development.</p>
+    <p>They emphasze:</p>
+    <ul>
+  <li>Iterative &amp; incremental development</li>
+  <li>Frequent communication with customer representatives</li>
+  <li>Short “time-boxed” development cycles</li>
+  <li>Focus on quality as a matter of professional pride</li>
+</ul><p>This lesson is a discussion of the origins of Agile Development and a quick overview of the basic principles.</p>
+    <a id="agileasasocialentity"><h1 id="agile-as-a-social-entity">1 Agile as a Social Entity</h1></a><a id="agiledevelopmentis"><h2 id="agile-development-is">1.1 Agile Development is</h2></a><ul><a id="agiledevelopmentis">
+  <li>A reaction against heavily-managed, documentation-heavy processes</li>
+  </a><li><a id="agiledevelopmentis">A social movement within the software development profession
+    </a><ul><a id="agiledevelopmentis">
+      </a><li><a id="agiledevelopmentis">Introduced in the </a><a href="http://agilemanifesto.org/">Agile Manifesto</a>  (2001)</li>
+    </ul>
+  </li>
+</ul><a id="theagilemanifesto"><h3 id="the-agile-manifesto">1.1.1 The Agile Manifesto</h3><blockquote>
+  <p>We are uncovering better ways of developing software by doing it and helping others do it. Through this work we have come to value:</p>
+    
+  <ul>
+    <li><em>Individuals and interactions</em> over processes and tools</li>
+    <li><em>Working software</em> over comprehensive documentation</li>
+    <li><em>Customer collaboration</em> over contract negotiation</li>
+    <li><em>Responding to change</em> over following a plan</li>
+  </ul>
+  <p>That is, while there is value in the items on the right, we value the items on the left more.</p>
+    
+</blockquote></a><a id="thetwelveprinciplesofagilesoftware"><h3 id="the-twelve-principles-of-agile-software">1.1.2 The Twelve Principles of Agile Software</h3><p>1) Our highest priority is to satisfy the customer through early and continuous delivery of valuable software.</p>
+    <p>2) Welcome changing requirements, even late in development. Agile processes harness change for the customer’s competitive advantage.</p>
+    <p>3) Deliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.</p>
+    <p>4) Business people and developers must work together daily throughout the project.</p>
+    <p>5) Build projects around motivated individuals. Give them the environment and support they need, and trust them to get the job done.</p>
+    <p>6) The most efficient and effective method of conveying information to and within a development team is face-to-face conversation.</p>
+    <p>7) Working software is the primary measure of progress.</p>
+    <p>8) Agile processes promote sustainable development. The sponsors, developers, and users should be able to maintain a constant pace indefinitely.</p>
+    <p>9) Continuous attention to technical excellence and good design enhances agility.</p>
+    <p>10) Simplicity – the art of maximizing the amount of work not done – is essential.</p>
+    <p>11) The best architectures, requirements, and designs emerge from self-organizing teams.</p>
+    <p>12) At regular intervals, the team reflects on how to become more effective, then tunes and adjusts its behavior accordingly.</p>
+    <h2 id="variations">1.2 Variations</h2><ul>
+  <li>Extreme programming</li>
+  <li>Scrum</li>
+</ul></a><a id="commonpracticesofagiledevelopment"><h1 id="common-practices-of-agile-development">2 Common Practices of Agile Development</h1><h2 id="fundamentals">2.1 Fundamentals</h2><p>There are many variants of agile development, but they all share an emphasis on </p>
+    <ul>
+  <li>Incremental development, in fairly short intervals</li>
+  <li>Driven by User stories, emphasizing service to customers</li>
+  <li>Small teams, with minimal formal structure, with frequent communications</li>
+  <li>Internal commitment to quality</li>
+  <li>Continuous testing</li>
+  <li>Visible process: (to customers/end users)</li>
+  <li>Continuous improvement &amp; adaptability</li>
+</ul></a><a id="commonpractices"><h2 id="common-practices">2.2 Common Practices</h2><p></p><div class="noFloat">&nbsp;</div>
+    <div style="text-align: center&#39;"><img align="center" src="./Agile_Methods_files/agilePractices.png" style="max-width: 90%;"></div>
+    <p></p>
+    </a><p><a id="commonpractices">source: The </a><a href="https://www.agilealliance.org/agile101/subway-map-to-agile-practices/">Agile Alliance</a></p>
+    <ul>
+  <li>
+    <p>Many of these practices are familiar.</p>
+    
+    <ul>
+      <li>Look, for example, at the DevOps and Testing “tracks”</li>
+    </ul>
+  </li>
+  <li>
+  <p>Extreme Programming and Scrum are specific forms of Agile</p>
+    </li>
+</ul><a id="userstories"><h3 id="user-stories">2.2.1 User stories</h3><p>Key idea in all agile variations.</p>
+    <p>A <span class="firstterm">user story</span> is a mechanism for incremental requirements elicitation and analysis.</p>
+    <hr><p><strong>Stories are not Requirements</strong></p>
+    <p>…despite the focus on functionality and non-functional characteristics.</p>
+    <ul>
+  <li>Stories are “a promissory note for a future conversation” (Cockburn)
+    <ul>
+      <li>A use-case is a transcript of that conversation (Standley)</li>
+    </ul>
+  </li>
+  <li>Stories are a way of prioritizing work
+    <ul>
+      <li>Including the work of eliciting detailed requirements</li>
+    </ul>
+  </li>
+</ul><hr><p><strong>Story Boards</strong></p>
+    <ul>
+  <li>Stories grouped on a <span class="firstterm">story board</span> to help “enrich” the stories</li>
+</ul><img src="https://support.workfront.com/hc/article_attachments/360003850813/agile_storyboard_overview.png" style="max-width: 90%"><ul>
+  <li>Story boards can be organized in many different ways
+    <ul>
+      <li>Our project boards have emphasized TDD</li>
+      <li>More commonly, related stories are grouped into  <span class="firstterm">subtasks</span> that are shown in a common  <span class="firstterm">swimlane</span>.</li>
+    </ul>
+  </li>
+</ul><h3 id="teams">2.2.2 Teams</h3><ul>
+  <li>small groups, largely full-time</li>
+  <li>contains all required skills (technical and domain expertise)
+    <ul>
+      <li>Stakeholder representative(s) is a regular team member</li>
+    </ul>
+  </li>
+</ul></a><a id="iterativedevelopment"><h3 id="iterative-development">2.2.3 Iterative development</h3><ul>
+  <li>Activities repeat (analysis, design, testing, …)</li>
+  <li>Work products can be revisited (enhancements, refactoring, etc.)</li>
+  <li>Scheduling may focus on short, repeated development cycles</li>
+</ul></a><a id="incrementaldevelopment"><h3 id="incremental-development">2.2.4 Incremental development</h3><ul>
+  <li>Each successive version of the product
+    <ul>
+      <li>is “usable”</li>
+      <li>adds user-visible functionality</li>
+    </ul>
+  </li>
+  <li>Contrast this with a strategy of delivering successive, complete  subsystems that will not be revisited</li>
+  <li>Think of building a house by adding room after room, as opposed  to pouring the whole foundation, then framing all the exterior  walls, then laying all the floors, then doing all the electrical  wiring, then doing all the plumbing, then…
+    <ul>
+      <li>
+      <p>When can you start using the house?</p>
+    </li>
+    </ul>
+  </li>
+  <li>
+</li></ul></a><a id="commonintersections"><h2 id="common-intersections">2.3 Common Intersections</h2><p>Look at the places where two or more “tracks” overlap.</p>
+    </a><a id="iterationplanning"><h3 id="iteration-planning">2.3.1 Iteration Planning</h3><ul>
+  <li>
+  <p>Teams typically try for 4-10 stories per iteration</p>
+    </li>
+  <li>
+    <p>Select stories to implement in current implementation</p>
+    
+    <ul>
+      <li>
+      <p>Often organized onto a <span class="firstterm">task board</span></p>
+    </li>
+    </ul>
+  </li>
+</ul><hr><p><strong>Velocity</strong></p>
+    <p>Rate at which functionality (user stories) completed per iteration.</p>
+    <ul>
+  <li>
+  <p>Most agile approaches define a fixed number of days per iteration</p>
+    </li>
+  <li>
+    <p>Add up the effort estimates of all stories completed during an iteration.  This is the team’s current velocity.</p>
+    
+    <ul>
+      <li>Used to estimate time remaining to complete the project</li>
+    </ul>
+  </li>
+</ul><hr><p><strong>Task Board</strong></p>
+    <img align="right" src="./Agile_Methods_files/450px-Scrum_task_board.jpg" style="max-width: 67%;"><p>Contains stories to be completed in current iteration</p>
+    <ul>
+  <li>
+    <p>Combines story cards and task notes</p>
+    
+    <ul>
+      <li>task notes indicate team member responsible</li>
+      <li>color coding may designate feature, bug, general notes</li>
+      <li>each task is marked with an estimate of hours required</li>
+    </ul>
+  </li>
+  <li>
+    <p>Task notes organized in columns</p>
+    
+    <ul>
+      <li>To do: tasks yet to be started</li>
+      <li>In process: task that team members are working on</li>
+      <li>To verify: believed completed, needs to be checked</li>
+      <li>Done: verified as completed. Some boards also list</li>
+    </ul>
+  </li>
+  <li>Backlog: related stories not being handled this iteration</li>
+</ul></a><a id="sustainablepace"><h3 id="sustainable-pace">2.3.2 Sustainable pace</h3><ul>
+  <li>
+    <p>Setting a work pace that can be sustained indefinitely</p>
+    
+    <ul>
+      <li>overtime only in critical, unusual, and limited circumstances
+        <ul>
+          <li>Some evidence shows that routine overtime reduces  productivity</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+  <p>Once a pace has been established, teams can measure  <span class="firstterm">velocity</span></p>
+    </li>
+</ul><h3 id="meetings">2.3.3 Meetings</h3><ul>
+  <li>Emphasis on <span class="firstterm">co-location</span> of teams to enhance  communication</li>
+  <li>Daily meetings to review key coordination points
+    <ul>
+      <li><span class="firstterm">time-boxed</span> to very short time periods (e.g., 15  min.)</li>
+      <li>Any topic that starts a discussion is cut short and discussed by  interested parties <em>after</em> the meeting</li>
+      <li><span class="firstterm">Three Questions</span> (Scrum)
+        <ol>
+          <li>What have you completed since the last meeting?</li>
+          <li>What do you plan to complete by the next meeting?</li>
+          <li>What is getting in your way?</li>
+        </ol>
+      </li>
+      <li>Avoid “Yesterday I did X. Today I will continue working on X”
+        <ul>
+          <li>the <span class="firstterm">Scrum Zombie</span> pattern</li>
+          <li>helps if user stories define units of work that can be  completed in a day</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul></a><a id="rulesofsimplicity"><h3 id="rules-of-simplicity">2.3.4 Rules of Simplicity</h3><p>(Kent Beck)</p>
+    <p>Each code unit</p>
+    <ul>
+  <li>is verified by automated tests</li>
+  <li>contains no duplication</li>
+  <li>expresses separately each distinct idea or responsibility</li>
+  <li>contains the minimum number of components compatible with the  first 3 rules</li>
+</ul><h3 id="tdd">2.3.5 TDD</h3><p><span class="firstterm">Test-Driven Development</span> goes beyond our previously-cited “test first, code later” rule</p>
+    <ol>
+  <li>write a “single” unit test describing an unimplemented functionality</li>
+  <li>run the test (it should fail at this stage)</li>
+  <li>write “just enough” code to make the test pass</li>
+  <li>refactor the code until it conforms to the rules of simplicity</li>
+</ol><p>The four steps above are repeated, adding new, tested functionality each time.</p>
+    </a><a id="simpledesign"><h3 id="simple-design">2.3.6 Simple Design</h3><ul>
+  <li>
+    <p>Design is on-going</p>
+    
+    <p>Principles include</p>
+    
+    <ul>
+      <li>refactoring</li>
+      <li>YAGNI
+        <p>“You Ain’t Gonna Need It” - argument against early design of elaborate components for future use: “We going to need X eventually. We might was well design it now.” “YAGNI”</p>
+    
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>Design should be <span class="firstterm">emergent</span></p>
+    
+    <ul>
+      <li>good global design will emerge from careful attention to local  design questions
+        <ul>
+          <li><em>Wishful thinking</em>?</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul></a><a id="familiarintersections"><h3 id="familiar-intersections">2.3.7 Familiar Intersections</h3><ul>
+  <li>Refactoring</li>
+  <li>Continuous Integration</li>
+</ul></a></div><script>sshowControl0 = { counter: 1,
+             showNumber: 0, max: 1};
+             window.onhashchange = hashHasChanged;</script><div class="navFooter" id="slideshowControl0"><table class="navFooter"><tbody><tr class="slideshowcontrol"><td class="slideshowcontrolLeft"></td><td class="slideshowcontrolMiddle">
+<a class="imgLink" href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Directory/outline/index.html" title="Course home/outline"><img src="./Agile_Methods_files/home.png"></a>
+<a href="mailto:tkennedy@cs.odu.edu?subject=CS350%2C%20Agile%20Methods"><img src="./Agile_Methods_files/email.png" title="Email to instructor"></a><span style="margin: 0 32px;">
+<a class="imgLink" href="https://www.cs.odu.edu/~tkennedy/cs350/latest/Public/agile/agile__slides.html"><img src="./Agile_Methods_files/slides.png" title="Slides for lectures"></a></span></td><td class="slideshowcontrolRight"></td></tr></tbody></table></div><div class="copyright"><a id="familiarintersections">© 2015-2022, Old Dominion Univ.</a></div><a id="familiarintersections">
+</a></body></html>
