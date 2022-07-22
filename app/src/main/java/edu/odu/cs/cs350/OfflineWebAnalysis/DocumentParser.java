@@ -18,7 +18,7 @@ public class DocumentParser {
     // This method is for functionality testing only.
     // Currently only runs on Windows system.
     // In powershell type:
-    // ./gradlew run --args='_Your filePath_'
+    // ./gradlew run --args='_Your filePath_'(foward slashes are doubled)
         // I have been testing by downloading the html for the Agile Methods lecture notes.
         // I would use downloaded html lecture notes until/unless Professor comes out with some testing files for us.
     public static void main(String[] args) throws IOException {
