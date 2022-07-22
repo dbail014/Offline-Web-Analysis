@@ -14,9 +14,7 @@ public class Image extends Resource {
     }
 
     /*
-     * Duplicate an image
-     * 
-     * @param src image to duplicate
+     * Non-default constructor
      */
     public Image(String _URIpath, Classification _classification, long _fileSize)
     {
@@ -47,7 +45,7 @@ public class Image extends Resource {
     /*
      * Update File Size
      * 
-     * @param _fileSize replacement fileSize
+     * @param _fileSize
      */
     public void setFileSize(long _fileSize) {
         this.fileSize = _fileSize;
