@@ -15,7 +15,7 @@ import org.jsoup.Jsoup;
 
 public class DocumentParser {
 
-    // This class is for functionality testing only.
+    // This method is for functionality testing only.
     // Currently only runs on Windows system.
     // In powershell type:
     // ./gradlew run --args='_Your filePath_'
@@ -31,7 +31,7 @@ public class DocumentParser {
         System.out.println(lImages.toString());
     }
 
-    String localPath;
+    protected String localPath;
     protected Vector<Image> v = new Vector<Image>();
 
     public DocumentParser(Document doc, String lPath) {
@@ -68,6 +68,7 @@ public class DocumentParser {
     // TODO -- Getters and setters for vector(s)
 
     private Image imageProcessor(Element src) {
+        Image _image = new Image();
         if (isImageData(src)) {
             String srcString = ""; // initial raw src String
             String baseURIString = ""; // base URI String
@@ -84,25 +85,20 @@ public class DocumentParser {
             // Absolute File Path for Windows
             absoluteFilePath = createAbsoluteFilePathWindows(baseURIString, path);
 
-            Image _image = new Image();
             // check for external with if statement here
             if (isExternal(path)) {
                 // create external image object (with fileSize = 0)
-                Image currImage = new Image(baseURIString, Classification.EXTERNAL, bytes);
-                _image = (Image) currImage.clone();
+                _image = new Image(baseURIString, Classification.EXTERNAL, bytes);
             }
             if (isInternal(path)) {
                 bytes = getBytes(absoluteFilePath);
-                Image currImage = new Image(baseURIString, Classification.INTERNAL, bytes);
-                _image = (Image) currImage.clone();
+                _image = new Image(baseURIString, Classification.INTERNAL, bytes);
             }
-            System.out.println(_image.toString());
             // defined above with placeholder value
             // add image object to collection<image> images from HTMLDocuments.java
             return _image;
         }
-        Image im = new Image();
-        return im;
+        return _image;
     }
     
     private boolean isImageData(Element src) {
