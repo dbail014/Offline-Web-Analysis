@@ -31,47 +31,82 @@ public class DocumentParser {
         System.out.println(lImages.toString());
     }
 
-    protected String localPath;
-    protected Vector<Image> v = new Vector<Image>();
+    // Possibly make path type URL
+    private String localPath;
+    private Vector<Image> images = new Vector<Image>(0);
 
+    /*
+     * Default Constructor can not be created
+     */
+    private DocumentParser() { }
+    
+    /*
+     * Non-default constructor
+     */
     public DocumentParser(Document doc, String lPath) {
         setLocalPath(lPath);
-        Elements media = doc.select("[src]");
-        this.setImageVector(media);
+        this.setImageVector(doc);
     }
 
     
-    // TODO -- Full documentation for getters/setters.
-
-    // Setter for local path string
-    public void setLocalPath(String lPath) {
-        this.localPath = lPath;
-    }
-    
-    // Getter for local path string
+    // /**
+    //  * Getter for localPath
+    //  * 
+    //  * @return local path
+    //  */
     public String getLocalPath() {
         return this.localPath;
     }
 
-    // Setter for image vector.
-    public void setImageVector(Elements media) {
-        for (Element src : media) {
-            this.v.addElement(imageProcessor(src));
-        }
+    /** 
+     * Setter for localPath
+     * 
+     * @param _localPath
+     */
+    public void setLocalPath(String _localPath) {
+        this.localPath = _localPath;
     }
-
-    // Getter for image vector
+    
+    // /**
+    //  * Retrieve image collection as type Vector<Image>
+    //  * 
+    //  * @return current Image Vector
+    //  */
     public Vector<Image> getImageVector() {
-        return this.v;
+        return this.images;
     }
 
-    // TODO -- Getters and setters for vector(s)
+    /** 
+     * Updates image collection by extracting image data from provided HTML document
+     * 
+     * @param doc A JSOUP document object
+     */
+    public DocumentParser setImageVector(Document _doc) {
+        Elements media = _doc.select("[src]");
+        // makes sure vector is empty
+        this.images.clear();
+        for (Element src : media) {
+            this.images.addElement(imageProcessor(src));
+        }
+        return this;
+    }
 
+    // -------------------------------------------------------------------------------
+    // The below methods are private and only used inside the setImageVector method
+    // -------------------------------------------------------------------------------
+    
+    /** 
+     * Extract image data from provided JSOUP Element src
+     * 
+     * @param src JSOUP Element to be processed
+     * @return _image The image data as an Image object
+     */
     private Image imageProcessor(Element src) {
         Image _image = new Image();
         if (isImageData(src)) {
             String srcString = ""; // initial raw src String
             String baseURIString = ""; // base URI String
+            URI uri; 
             String path = ""; // image file path
             String absoluteFilePath = "";
             long bytes = 0;
@@ -101,22 +136,45 @@ public class DocumentParser {
         return _image;
     }
     
+    /** 
+     * Checks if provided Element contains image data
+     * 
+     * @param src
+     * @return True if specified Element contains image data
+     */
     private boolean isImageData(Element src) {
         return src.normalName().equals("img");
     }
-
-    // if path is for external object (image)
-    // Documentation -- TODO
+    
+    /** 
+     * Checks if provided String links to an external image
+     * 
+     * @param path
+     * @return True if specified path links an external image
+     */
+    // TODO -- Fix based off professor input
     static boolean isExternal(String path) {
         return (path.contains("https://") || path.contains("http://"));
     }
-
-    // if path is for internal object (image)
-    // Documentation -- TODO
+    
+    /**
+     * Checks if provided String links to an internal image
+     * 
+     * @param path
+     * @return True if specified path links internal image
+     */
+    // TODO -- Fix based off professor input
     private boolean isInternal(String path) {
         return (!path.contains("https://") && !path.contains("http://"));
     }
-
+    
+    /** 
+     * Returns size of the file linked from file path
+     * Size is returned as a long NOT an int... 0 != 0L
+     * 
+     * @param absoluteFilePath
+     * @return file size
+     */
     // return long for bytes
     // Documentation -- TODO
     private long getBytes(String absoluteFilePath) {
@@ -127,7 +185,13 @@ public class DocumentParser {
         }
         return 0;
     }
-
+    
+    /** 
+     * @param baseURIString
+     * @param path
+     * @return String
+     */
+    // TODO -- Re-tool based off Professor input.
     // returns absoluteFilePath String
     // Documentation -- TODO
     private String createAbsoluteFilePathWindows(String baseURIString, String path) {
@@ -138,4 +202,8 @@ public class DocumentParser {
         absoluteFilePath = absoluteFilePath.replaceAll("\\\\", "\\\\\\\\");
         return absoluteFilePath;
     }
+
+    // -------------------------------------------------------------------------------
+    // End of private methods contained inside setImageVector method
+    // -------------------------------------------------------------------------------
 }
