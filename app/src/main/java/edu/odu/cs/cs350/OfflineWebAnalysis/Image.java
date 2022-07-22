@@ -1,5 +1,7 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
+import java.net.URI;
+
 public class Image extends Resource {
     // data members
     protected long fileSize;
@@ -16,7 +18,7 @@ public class Image extends Resource {
     /*
      * Non-default constructor
      */
-    public Image(String _URIpath, Classification _classification, long _fileSize)
+    public Image(URI _URIpath, Classification _classification, long _fileSize)
     {
         super(_URIpath, _classification);
         this.fileSize = _fileSize;
@@ -83,6 +85,20 @@ public class Image extends Resource {
         && (this.fileSize == rhsResource.fileSize);
     }
 
+    /**
+     * Compare two generators for equivalance based only on the number of
+     * primes generated.
+     */
+    public boolean equals(Image rhs) {
+        // if (!(rhs instanceof PrimeGenerator)) {
+        //     return false;
+        // }
+
+        Image r = (Image) rhs;
+
+        return this.URIpath.equals(r.URIpath) && this.classification.equals(r.classification) && this.fileSize == r.fileSize;
+    }
+
     /*
      * Generate a hash code
      */
@@ -100,6 +116,6 @@ public class Image extends Resource {
     @Override
     public String toString()
     {
-        return "{IMG:\n  URI: " + this.URIpath + ",\n  Classification: " + this.classification.toString() + (this.fileSize > 0 ? (",\n  Size: " + this.fileSize) : "") + "}\n";
+        return "{" + this.URIpath.toString() + ", \n" + this.classification.toString() + ",\n" + this.fileSize + "}\n";
     }
 }
