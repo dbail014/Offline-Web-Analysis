@@ -1,23 +1,25 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
+import java.net.URI;
+
 public abstract class Resource implements Cloneable {
 
     // data members
-    protected String URIpath;
+    protected URI URIpath;
     protected Classification classification;
 
     /*
      * Default constructor
      */
     public Resource() {
-        this.URIpath = "";
+        // no URI here because no empty/default version
         this.classification = Classification.EXTERNAL;
     }
 
     /*
      * Non-default constructor
      */
-    public Resource(String _URIpath, Classification _classification) {
+    public Resource(URI _URIpath, Classification _classification) {
         this.URIpath = _URIpath;
         this.classification = _classification;
     }
@@ -27,7 +29,7 @@ public abstract class Resource implements Cloneable {
      * 
      * @return current URI Path
      */
-    public String getURIPath() {
+    public URI getURIPath() {
         return this.URIpath;
     }
 
@@ -36,7 +38,7 @@ public abstract class Resource implements Cloneable {
      * 
      * @param _URIpath replacement URIpath
      */
-    public void setURIPath(String _URIpath) {
+    public void setURIPath(URI _URIpath) {
         this.URIpath = _URIpath;
     }
 
