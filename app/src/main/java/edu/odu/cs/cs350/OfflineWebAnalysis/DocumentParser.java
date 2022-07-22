@@ -8,6 +8,7 @@ import java.util.Vector;
 import org.jsoup.helper.Validate;
 import java.io.IOException;
 import org.jsoup.Jsoup;
+import java.net.URI;
 
 // TODO -- Add OOP convention methods.
 // TODO -- Add full documentation.
