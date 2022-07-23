@@ -1,6 +1,5 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
-import java.lang.*;
 import java.net.URI;
 
 public class Image extends Resource {
@@ -93,7 +92,7 @@ public class Image extends Resource {
     public boolean equals(Image rhs) {
         // if (!(rhs instanceof PrimeGenerator)) {
         //     return false;
-        // }
+        // }C
 
         Image r = (Image) rhs;
 
