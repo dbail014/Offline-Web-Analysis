@@ -8,32 +8,38 @@ import java.util.Vector;
 import org.jsoup.helper.Validate;
 import java.io.IOException;
 import org.jsoup.Jsoup;
-import java.net.URI;
 
-// TODO -- Add OOP convention methods.
-// TODO -- Add full documentation.
-// TODO -- Write unit tests; Ask about unit tests for abstracted functionality.
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+// TODO -- Refactor / Abstract some of the messier methods
 
 public class DocumentParser {
 
-    // This method is for functionality testing only.
-    // Currently only runs on Windows system.
-    // In powershell type:
-    // ./gradlew run --args='_Your filePath_'(foward slashes are doubled)
-        // I have been testing by downloading the html for the Agile Methods lecture notes.
-        // I would use downloaded html lecture notes until/unless Professor comes out with some testing files for us.
-    public static void main(String[] args) throws IOException {
+    // Driver function for testing
+    public static void main(String[] args) throws IOException, URISyntaxException {
         Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        String path = args[0];
-        File input = new File(path);
+        // String path = args[0];
+        String pat = System.getProperty("user.dir");
+        String fileInProject = "/src/test/java/edu/odu/cs/cs350/OfflineWebAnalysis/resources/test2.html";
+        pat += fileInProject;
+        pat = pat.replaceAll("\\\\", "/");
+        
+        Path pathing = Paths.get(pat);
+        File input = pathing.toFile();
+        // System.out.println(pathing.toString());
+        URI uri = pathing.toUri();
+        // System.out.println(uri.toString());
+
         Document doc = Jsoup.parse(input);
-        DocumentParser p = new DocumentParser(doc, path);
+        DocumentParser p = new DocumentParser(doc, pathing);
         Vector<Image> lImages = new Vector<Image>(p.getImageVector());
         System.out.println(lImages.toString());
     }
 
-    // Possibly make path type URL
-    private String localPath;
+    private Path localPath;
     private Vector<Image> images = new Vector<Image>(0);
 
     /*
@@ -44,27 +50,27 @@ public class DocumentParser {
     /*
      * Non-default constructor
      */
-    public DocumentParser(Document doc, String lPath) {
-        setLocalPath(lPath);
-        this.setImageVector(doc);
+    public DocumentParser(Document doc, Path _localPath) {
+        setLocalPath(_localPath);
+        // setPath(_localPath);
+        setImageVector(doc);
     }
 
-    
     // /**
-    //  * Getter for localPath
-    //  * 
-    //  * @return local path
-    //  */
-    public String getLocalPath() {
+    // * Getter for localPath
+    // *
+    // * @return local path
+    // */
+    public Path getPath() {
         return this.localPath;
     }
 
-    /** 
+    /**
      * Setter for localPath
      * 
      * @param _localPath
      */
-    public void setLocalPath(String _localPath) {
+    public void setLocalPath(Path _localPath) {
         this.localPath = _localPath;
     }
     
@@ -87,7 +93,8 @@ public class DocumentParser {
         // makes sure vector is empty
         this.images.clear();
         for (Element src : media) {
-            this.images.addElement(imageProcessor(src));
+            if (imageProcessor(src) != null)
+                this.images.addElement(imageProcessor(src));
         }
         return this;
     }
@@ -103,11 +110,9 @@ public class DocumentParser {
      * @return _image The image data as an Image object
      */
     private Image imageProcessor(Element src) {
-        Image _image = new Image();
         if (isImageData(src)) {
             String srcString = ""; // initial raw src String
             String baseURIString = ""; // base URI String
-            URI uri; 
             String path = ""; // image file path
             String absoluteFilePath = "";
             long bytes = 0;
@@ -118,23 +123,31 @@ public class DocumentParser {
             path = srcString.substring(srcString.indexOf("src=\"") + 5);
             path = path.substring(0, path.indexOf("\""));
 
-            // Absolute File Path for Windows
-            absoluteFilePath = createAbsoluteFilePathWindows(baseURIString, path);
-
-            // check for external with if statement here
             if (isExternal(path)) {
                 // create external image object (with fileSize = 0)
-                _image = new Image(baseURIString, Classification.EXTERNAL, bytes);
+                Path pathing = Paths.get(baseURIString);
+                URI uri = pathing.toUri();
+                return new Image(uri, Classification.EXTERNAL, bytes);
             }
+
+            // Get the URI from string.
+            // Will refactor/abstract in next sprint.
+            // Took way too long to figure this out and time
+            // is limited.
+            baseURIString = baseURIString.replaceAll("\\\\", "/");
+            absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("/") + 1));
+            absoluteFilePath += path.substring(path.indexOf("/") + 1);
+            Path pathing = Paths.get(absoluteFilePath);
+            URI uri = pathing.toUri();
+            
             if (isInternal(path)) {
                 bytes = getBytes(absoluteFilePath);
-                _image = new Image(baseURIString, Classification.INTERNAL, bytes);
+                return new Image(uri, Classification.INTERNAL, bytes);
             }
             // defined above with placeholder value
             // add image object to collection<image> images from HTMLDocuments.java
-            return _image;
         }
-        return _image;
+        return null;
     }
     
     /** 
@@ -185,23 +198,6 @@ public class DocumentParser {
             return file.length();
         }
         return 0;
-    }
-    
-    /** 
-     * @param baseURIString
-     * @param path
-     * @return String
-     */
-    // TODO -- Re-tool based off Professor input.
-    // returns absoluteFilePath String
-    // Documentation -- TODO
-    private String createAbsoluteFilePathWindows(String baseURIString, String path) {
-        String absoluteFilePath = "";
-        absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("\\") + 1));
-        absoluteFilePath += path.substring(path.indexOf("/") + 1);
-        absoluteFilePath = absoluteFilePath.replaceAll("/", "\\\\");
-        absoluteFilePath = absoluteFilePath.replaceAll("\\\\", "\\\\\\\\");
-        return absoluteFilePath;
     }
 
     // -------------------------------------------------------------------------------
