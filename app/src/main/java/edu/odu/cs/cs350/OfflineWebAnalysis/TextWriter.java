@@ -6,11 +6,12 @@ import java.io.PrintWriter;
 import org.jsoup.nodes.Documents;
 import javax.swing.text.html.parser.DocumentParser;
 
+
 //functions that i need for this class
 // sum up all the sizes
 //get the sizes of the webpage (this functionality is already done so just call it from another class)
 //i also need something to get the paths of the pages
-//
+
 
 public class TextWriter extends ReportWriter{
 
@@ -27,8 +28,10 @@ public class TextWriter extends ReportWriter{
 
         PrintWriter outFile = new PrintWriter("things.txt");
         
-        long sizeOfPage = p.getBytes(path);
-        //the line above is in bytes so find the equation to convert to MB and then format it to the 2 decimal place
+        //Format this output to the 2 decimal place
+        long sizeOfPage = 0.00000095367431640625 * p.getBytes(path);
+        //1 Bytes = 0.00000095367431640625 MiB
+        //1 MiB = 1,048,576 Bytes
         
         //NOW I NEED TO CREATE THE ALGORITHM TO ORDER IT AND I NEED TO MAKE AN IF THEN STATEMENT THAT CONTINUES TO 
         //ADD THE DIFFERENT PAGES AND PATHS
