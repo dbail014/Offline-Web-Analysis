@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import org.jsoup.nodes.Document;
+
 import javax.swing.text.html.parser.DocumentParser;
 
 import java.net.URI;
@@ -30,7 +31,7 @@ public class TextWriter extends ReportWriter{
         //array because each element represents a single page and every page has a path
         
         DocumentParser p = new DocumentParser(doc);
-        String path = p.getLocalPath();
+        String path = p.getPath();
 
         //make a variable that stores the absolute path of a file 
         //String path = "";
