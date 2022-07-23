@@ -4,8 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import org.jsoup.nodes.Document;
-import org.jsoup.Jsoup;
+
 import javax.swing.text.html.parser.DocumentParser;
+
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.jsoup.helper.Validate;
+import java.io.IOException;
+import org.jsoup.Jsoup;
 
 
 //functions that i need for this class
@@ -36,8 +45,14 @@ public class TextWriter extends ReportWriter{
         
         //NOW I NEED TO CREATE THE ALGORITHM TO ORDER IT AND I NEED TO MAKE AN IF THEN STATEMENT THAT CONTINUES TO 
         //ADD THE DIFFERENT PAGES AND PATHS
-        outFile.print(sizeOfPage + "  "+ path);
 
+        //hardcoding forloop size
+        // size of page needs to interate
+        int tempSize = 10;
+        for(int x=0; x < tempSize; x++)
+            {
+                 outFile.print(sizeOfPage + "  "+ path);
+             }
 
         outFile.close();
 
