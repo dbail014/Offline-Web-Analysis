@@ -18,23 +18,21 @@ import java.nio.file.Paths;
 
 public class DocumentParser {
 
-    // Driver function for testing
-    public static void main(String[] args) throws IOException, URISyntaxException {
+    // This method is for functionality testing only.
+    // Currently only runs on Windows system.
+    // In powershell type:
+    // ./gradlew run --args='_Your filePath_'(foward slashes are doubled)
+    // I have been testing by downloading the html for the Agile Methods lecture
+    // notes.
+    // I would use downloaded html lecture notes until/unless Professor comes out
+    // with some testing files for us.
+    public static void main(String[] args) throws IOException {
         Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        // String path = args[0];
-        String pat = System.getProperty("user.dir");
-        String fileInProject = "/src/test/java/edu/odu/cs/cs350/OfflineWebAnalysis/resources/test2.html";
-        pat += fileInProject;
-        pat = pat.replaceAll("\\\\", "/");
-        
-        Path pathing = Paths.get(pat);
-        File input = pathing.toFile();
-        // System.out.println(pathing.toString());
-        URI uri = pathing.toUri();
-        // System.out.println(uri.toString());
-
-        Document doc = Jsoup.parse(input);
-        DocumentParser p = new DocumentParser(doc, pathing);
+        String stringPath = args[0];
+        Path path = Paths.get(stringPath);
+        File file = path.toFile();
+        Document doc = Jsoup.parse(file);
+        DocumentParser p = new DocumentParser(doc, path);
         Vector<Image> lImages = new Vector<Image>(p.getImageVector());
         System.out.println(lImages.toString());
     }
