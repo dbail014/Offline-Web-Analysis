@@ -1,20 +1,29 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
+/**
+ * Description...
+ * 
+ * 
+ * @author James Wright
+ * 
+ */
 enum Classification {
     INTERNAL,
     INTRAPAGE,
     EXTERNAL;
 
     public String toString() {
+        String classificationString = "";
         switch(this) {
             case INTERNAL:
-                return "internal";
+                classificationString = "internal";
+                break;
             case INTRAPAGE:
-                return "intrapage";
+                classificationString = "intrapage";
+                break;
             case EXTERNAL: 
-                return "external";
-            default:
-                return null;
+                classificationString = "external";
         }
+        return classificationString;
     }
 }

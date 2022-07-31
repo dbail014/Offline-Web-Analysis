@@ -19,104 +19,92 @@ import java.net.URISyntaxException;
  * 
  */
 @TestMethodOrder(MethodOrderer.MethodName.class)
-public class TestImage {
-    Image testImage;
-    Image emptyImage;
+public class TestAnchor {
+    Anchor testAnchor;
+    Anchor emptyAnchor;
     URI test1Uri;
     URI test2URI;
     URI test3URI;
 
     @BeforeEach
     public void setUp() throws URISyntaxException { // DONE
-        emptyImage = new Image();
-        testImage = new Image(); 
+        emptyAnchor = new Anchor();
+        testAnchor = new Anchor(); 
 
         test1Uri = new URI("./user/someDir/file.html");
         test2URI = new URI("./user/OtherDir/file.html");
         test3URI = new URI("www.google.com");
         
-        testImage.setClassification(Classification.INTERNAL);
-        testImage.setFileSize(1000);
-        testImage.setURIPath(test1Uri);
+        testAnchor.setClassification(Classification.INTERNAL);
+        testAnchor.setURIPath(test1Uri);
     }
 
     @Test
     public void testDefaultConstructor() { // DONE
-        Image defaultImage = new Image();
-        Resource generic = (Resource) defaultImage;
+        Anchor defaultAnchor = new Anchor();
+        Resource generic = (Resource) defaultAnchor;
 
         // Checks -- No check for URI because there is no empty value for URI
-        assertThat(defaultImage.getClassification(), equalTo(Classification.EXTERNAL));
-        assertThat(defaultImage.getFileSize(), equalTo(0L));
+        assertThat(defaultAnchor.getClassification(), equalTo(Classification.EXTERNAL));
         assertThat(generic.getClassification(), equalTo(Classification.EXTERNAL));
     }
 
     @Test
     public void testNonDefaultConstructor() {
-        Image nonDefaultImage = new Image(test2URI, Classification.INTERNAL, 100);
+        Anchor nonDefaultAnchor = new Anchor(test2URI, Classification.INTERNAL);
 
         // Checks
-        assertThat(nonDefaultImage.getClassification(), equalTo(Classification.INTERNAL));
-        assertThat(nonDefaultImage.getFileSize(), equalTo(100L));
-        assertThat(nonDefaultImage.getURIPath(), equalTo(test2URI));
+        assertThat(nonDefaultAnchor.getClassification(), equalTo(Classification.INTERNAL));
+        assertThat(nonDefaultAnchor.getURIPath(), equalTo(test2URI));
     }
     
     @Test
     public void testCopyConstructor() {
-        Image copy = new Image(testImage);
+        Anchor copy = new Anchor(testAnchor);
 
         // Checks
         assertThat(copy.getClassification(), equalTo(Classification.INTERNAL));
-        assertThat(copy.getFileSize(), equalTo(1000L));
         assertThat(copy.getURIPath(), equalTo(test1Uri));
         
     }
 
     @Test
     public void testClone() {
-        Image copy = (Image) testImage.clone();
+        Anchor copy = (Anchor) testAnchor.clone();
 
         // Checks
         assertThat(copy.getClassification(), equalTo(Classification.INTERNAL));
-        assertThat(copy.getFileSize(), equalTo(1000L));
         assertThat(copy.getURIPath(), equalTo(test1Uri));
     }
 
     @Test
     public void testEquals() {
-        Image generic = new Image();
+        Anchor generic = new Anchor();
 
-        assertThat(testImage, not(equalTo(generic)));
+        assertThat(testAnchor, not(equalTo(generic)));
         
-        Image imitation = (Image) testImage.clone();
+        Anchor imitation = (Anchor) testAnchor.clone();
 
         imitation.setClassification(Classification.INTERNAL);
-        assertThat(testImage, is(equalTo(imitation)));
-
-        imitation.setFileSize(1000L);
-        assertThat(testImage, is(equalTo(imitation)));
+        assertThat(testAnchor, is(equalTo(imitation)));
 
         imitation.setURIPath(test1Uri);
-        assertThat(testImage, is(equalTo(imitation)));
+        assertThat(testAnchor, is(equalTo(imitation)));
         
-        imitation = (Image) testImage.clone();
+        imitation = (Anchor) testAnchor.clone();
         imitation.setClassification(Classification.INTRAPAGE);
-        assertThat(testImage, is(not(equalTo(imitation))));
+        assertThat(testAnchor, is(not(equalTo(imitation))));
 
-        imitation = (Image) testImage.clone();
-        imitation.setFileSize(10L);
-        assertThat(testImage, is(not(equalTo(imitation))));
-
-        imitation = (Image) testImage.clone();
+        imitation = (Anchor) testAnchor.clone();
         imitation.setURIPath(test3URI);
-        assertThat(testImage, is(not(equalTo(imitation))));
+        assertThat(testAnchor, is(not(equalTo(imitation))));
     }
 
     @Test
     public void testHashCode() {
-        Image generic = new Image();
+        Anchor generic = new Anchor();
 
-        assertThat(testImage.hashCode(), not(equalTo(generic.hashCode())));
+        assertThat(testAnchor.hashCode(), not(equalTo(generic.hashCode())));
     }
 
     @Test

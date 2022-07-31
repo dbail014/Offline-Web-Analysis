@@ -1,57 +1,50 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.io.File;
+import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import java.util.Vector;
-import org.jsoup.helper.Validate;
 import java.io.IOException;
 import org.jsoup.Jsoup;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-// TODO -- Refactor / Abstract some of the messier methods
+// TODOs
+// Refactor code
+// Maybe create smaller "extract" methods out of the current setters
+// Fix Classifications (external, internal, intra-site, intra-page)
+// Update documentation of to be in line with javadoc standards
+// Unit tests
 
+/**
+ * Description...
+ * 
+ * 
+ * @author James Wright
+ * 
+ */
 public class DocumentParser {
-
-    // This method is for functionality testing only.
-    // Currently only runs on Windows system.
-    // In powershell type:
-    // ./gradlew run --args='_Your filePath_'(foward slashes are doubled)
-    // I have been testing by downloading the html for the Agile Methods lecture
-    // notes.
-    // I would use downloaded html lecture notes until/unless Professor comes out
-    // with some testing files for us.
-    public static void main(String[] args) throws IOException {
-        Validate.isTrue(args.length == 1, "usage: supply url to fetch");
-        String stringPath = args[0];
-        Path path = Paths.get(stringPath);
-        File file = path.toFile();
-        Document doc = Jsoup.parse(file);
-        DocumentParser p = new DocumentParser(doc, path);
-        Vector<Image> lImages = new Vector<Image>(p.getImageVector());
-        System.out.println(lImages.toString());
-    }
-
     private Path localPath;
+    private Vector<Anchor> anchors = new Vector<Anchor>(0);
     private Vector<Image> images = new Vector<Image>(0);
+    private Vector<Script> scripts = new Vector<Script>(0);
+    private Vector<Stylesheet> sytlesheets = new Vector<Stylesheet>(0);
 
-    /*
-     * Default Constructor can not be created
-     */
-    private DocumentParser() { }
-    
     /*
      * Non-default constructor
      */
-    public DocumentParser(Document doc, Path _localPath) {
+    public DocumentParser(Path _localPath) throws IOException, URISyntaxException {
         setLocalPath(_localPath);
-        // setPath(_localPath);
-        setImageVector(doc);
+        File file = _localPath.toFile();
+        Document doc = Jsoup.parse(file);
+        setAnchors(doc);
+        setImages(doc);
+        setScripts(doc);
+        setStylesheets(doc);
     }
 
     // /**
@@ -71,84 +64,247 @@ public class DocumentParser {
     public void setLocalPath(Path _localPath) {
         this.localPath = _localPath;
     }
-    
+
     // /**
-    //  * Retrieve image collection as type Vector<Image>
-    //  * 
-    //  * @return current Image Vector
-    //  */
-    public Vector<Image> getImageVector() {
+    // * Retrieve image collection as type Vector<Image>
+    // *
+    // * @return current Anchor Vector
+    // */
+    public Vector<Anchor> getAnchors() {
+        return this.anchors;
+    }
+
+    // /**
+    // * Retrieve image collection as type Vector<Image>
+    // *
+    // * @return current Image Vector
+    // */
+    public Vector<Image> getImages() {
         return this.images;
     }
 
-    /** 
+    // /**
+    // * Retrieve script collection as type Vector<Script>
+    // *
+    // * @return current Script Vector
+    // */
+    public Vector<Script> getScripts() {
+        return this.scripts;
+    }
+
+    // /**
+    // * Retrieve script collection as type Vector<Script>
+    // *
+    // * @return current Script Vector
+    // */
+    public Vector<Stylesheet> getStylesheets() {
+        return this.sytlesheets;
+    }
+
+    public void setAnchors(Document _doc) throws URISyntaxException {
+        Elements links = _doc.select("a[href]");
+        // makes sure anchor container is empty
+        this.anchors.clear();
+        for (Element src : links) {
+            String urlString = ""; // initial raw src String
+            URI uri;
+            
+            // TODO -- might be useful
+            Attributes att = src.attributes();
+            // System.out.println(att.toString());
+
+            urlString = src.toString();
+            urlString = urlString.substring(urlString.indexOf("href=\"") + 6);
+            urlString = urlString.substring(0, urlString.indexOf("\""));
+            uri = new URI(urlString);
+
+            // TODO -- Categorize as intra-page, intra-site, or external
+
+            if (isExternal(urlString)) {
+                // create external image object (with fileSize = 0)
+                // Path pathing = Paths.get(urlString);
+                this.anchors.addElement(new Anchor(uri, Classification.EXTERNAL));
+            }
+
+            if (isInternal(urlString)) {
+                this.anchors.addElement(new Anchor(uri, Classification.INTERNAL));
+            }
+        }
+    }
+
+    /**
      * Updates image collection by extracting image data from provided HTML document
      * 
      * @param doc A JSOUP document object
      */
-    public DocumentParser setImageVector(Document _doc) {
+    public void setImages(Document _doc) {
         Elements media = _doc.select("[src]");
-        // makes sure vector is empty
+        // makes sure image container is empty
         this.images.clear();
         for (Element src : media) {
-            if (imageProcessor(src) != null)
-                this.images.addElement(imageProcessor(src));
+            if (isImageData(src))
+            {
+                String srcString = ""; // initial raw src String
+                String baseURIString = ""; // base URI String
+                String path = ""; // image file path
+                String absoluteFilePath = "";
+                long bytes = 0;
+
+                // TODO -- might be useful
+                Attributes att = src.attributes();
+                // System.out.println(att.toString());
+
+                // Can probably be refactored -- TODO
+                srcString = src.toString();
+                baseURIString = src.baseUri();
+                path = srcString.substring(srcString.indexOf("src=\"") + 5);
+                path = path.substring(0, path.indexOf("\""));
+
+                if (isExternal(path)) {
+                    // create external image object (with fileSize = 0)
+                    Path pathing = Paths.get(baseURIString);
+                    URI uri = pathing.toUri();
+                    this.images.addElement(new Image(uri, Classification.EXTERNAL, bytes));
+                }
+
+                // Get the URI from string.
+                // Will refactor/abstract in next sprint.
+                // Took way too long to figure this out and time
+                // is limited.
+                baseURIString = baseURIString.replaceAll("\\\\", "/");
+                absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("/") + 1));
+                absoluteFilePath += path.substring(path.indexOf("/") + 1);
+                Path pathing = Paths.get(absoluteFilePath);
+                URI uri = pathing.toUri();
+
+                if (isInternal(path)) {
+                    bytes = getBytes(absoluteFilePath);
+                    this.images.addElement(new Image(uri, Classification.INTERNAL, bytes));
+                }
+            }
         }
-        return this;
+    }
+
+    /**
+     * Updates script collection by extracting script data from provided HTML document
+     * 
+     * @param doc A JSOUP document object
+     */
+    public void setScripts(Document _doc) {
+        Elements media = _doc.select("[src]");
+        // makes sure image container is empty
+        this.scripts.clear();
+        for (Element src : media) {
+            if (isScriptData(src)) {
+                String srcString = ""; // initial raw src String
+                String baseURIString = ""; // base URI String
+                String path = ""; // image file path
+                String absoluteFilePath = "";
+
+                // TODO -- might be useful
+                Attributes att = src.attributes();
+                // System.out.println(att.toString());
+
+                // Can probably be refactored -- TODO
+                srcString = src.toString();
+                baseURIString = src.baseUri();
+                path = srcString.substring(srcString.indexOf("src=\"") + 5);
+                path = path.substring(0, path.indexOf("\""));
+
+                if (isExternal(path)) {
+                    // create external image object (with fileSize = 0)
+                    Path pathing = Paths.get(baseURIString);
+                    URI uri = pathing.toUri();
+                    this.scripts.addElement(new Script(uri, Classification.EXTERNAL));
+                }
+
+                // Get the URI from string.
+                // Will refactor/abstract in next sprint.
+                // Took way too long to figure this out and time
+                // is limited.
+                baseURIString = baseURIString.replaceAll("\\\\", "/");
+                absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("/") + 1));
+                absoluteFilePath += path.substring(path.indexOf("/") + 1);
+                Path pathing = Paths.get(absoluteFilePath);
+                URI uri = pathing.toUri();
+
+                if (isInternal(path)) {
+                    this.scripts.addElement(new Script(uri, Classification.INTERNAL));
+                }
+            }
+        }
+    }
+
+    /**
+     * Updates script collection by extracting script data from provided HTML
+     * document
+     * 
+     * @param doc A JSOUP document object
+     */
+    public void setStylesheets(Document _doc) {
+        Elements media = _doc.select("link[href]");
+    
+        // makes sure image container is empty
+        this.scripts.clear();
+        for (Element src : media) {
+
+            String stringKey = src.toString();
+            // System.out.println(stringKey.contains("rel=\"stylesheet\""));
+            // System.out.println(src.normalName());
+            // System.out.println(src.attributes().toString());
+            // System.out.println(src.wholeText());
+
+            if (isStylesheetData(stringKey)) {
+                String srcString = ""; // initial raw src String
+                String baseURIString = ""; // base URI String
+                String path = ""; // image file path
+                String absoluteFilePath = "";
+
+                // TODO -- might be useful
+                // Attributes att = src.attributes();
+                // System.out.println(att.toString());
+
+                System.out.println(src.baseUri());
+
+                // Can probably be refactored -- TODO
+                srcString = src.toString();
+                baseURIString = src.baseUri();
+                path = srcString.substring(srcString.indexOf("rel=\"") + 5);
+                path = path.substring(0, path.indexOf("\""));
+
+                if (isExternal(path)) {
+                    // create external image object (with fileSize = 0)
+                    Path pathing = Paths.get(baseURIString);
+                    URI uri = pathing.toUri();
+                    this.scripts.addElement(new Script(uri, Classification.EXTERNAL));
+                }
+
+                // Get the URI from string.
+                // Will refactor/abstract in next sprint.
+                // Took way too long to figure this out and time
+                // is limited.
+                baseURIString = baseURIString.replaceAll("\\\\", "/");
+                absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("/") + 1));
+                absoluteFilePath += path.substring(path.indexOf("/") + 1);
+                Path pathing = Paths.get(absoluteFilePath);
+                URI uri = pathing.toUri();
+
+                if (isInternal(path)) {
+                    this.scripts.addElement(new Script(uri, Classification.INTERNAL));
+                }
+            }
+        }
+    }
+
+    public HTMLDocument build() {
+        return new HTMLDocument(this);
     }
 
     // -------------------------------------------------------------------------------
     // The below methods are private and only used inside the setImageVector method
     // -------------------------------------------------------------------------------
-    
-    /** 
-     * Extract image data from provided JSOUP Element src
-     * 
-     * @param src JSOUP Element to be processed
-     * @return _image The image data as an Image object
-     */
-    private Image imageProcessor(Element src) {
-        if (isImageData(src)) {
-            String srcString = ""; // initial raw src String
-            String baseURIString = ""; // base URI String
-            String path = ""; // image file path
-            String absoluteFilePath = "";
-            long bytes = 0;
 
-            // Can probably be refactored -- TODO
-            srcString = src.toString();
-            baseURIString = src.baseUri();
-            path = srcString.substring(srcString.indexOf("src=\"") + 5);
-            path = path.substring(0, path.indexOf("\""));
-
-            if (isExternal(path)) {
-                // create external image object (with fileSize = 0)
-                Path pathing = Paths.get(baseURIString);
-                URI uri = pathing.toUri();
-                return new Image(uri, Classification.EXTERNAL, bytes);
-            }
-
-            // Get the URI from string.
-            // Will refactor/abstract in next sprint.
-            // Took way too long to figure this out and time
-            // is limited.
-            baseURIString = baseURIString.replaceAll("\\\\", "/");
-            absoluteFilePath = baseURIString.substring(0, (baseURIString.lastIndexOf("/") + 1));
-            absoluteFilePath += path.substring(path.indexOf("/") + 1);
-            Path pathing = Paths.get(absoluteFilePath);
-            URI uri = pathing.toUri();
-            
-            if (isInternal(path)) {
-                bytes = getBytes(absoluteFilePath);
-                return new Image(uri, Classification.INTERNAL, bytes);
-            }
-            // defined above with placeholder value
-            // add image object to collection<image> images from HTMLDocuments.java
-        }
-        return null;
-    }
-    
-    /** 
+    /**
      * Checks if provided Element contains image data
      * 
      * @param src
@@ -157,8 +313,28 @@ public class DocumentParser {
     private boolean isImageData(Element src) {
         return src.normalName().equals("img");
     }
-    
-    /** 
+
+    /**
+     * Checks if provided Element contains script data
+     * 
+     * @param src
+     * @return True if specified Element contains image data
+     */
+    private boolean isScriptData(Element src) {
+        return src.normalName().equals("script");
+    }
+
+    /**
+     * Checks if provided Element contains stylesheet data
+     * 
+     * @param src
+     * @return True if specified Element contains image data
+     */
+    private boolean isStylesheetData(String key) {
+        return key.contains("rel=\"stylesheet\"");
+    }
+
+    /**
      * Checks if provided String links to an external image
      * 
      * @param path
@@ -168,7 +344,7 @@ public class DocumentParser {
     static boolean isExternal(String path) {
         return (path.contains("https://") || path.contains("http://"));
     }
-    
+
     /**
      * Checks if provided String links to an internal image
      * 
@@ -179,8 +355,8 @@ public class DocumentParser {
     private boolean isInternal(String path) {
         return (!path.contains("https://") && !path.contains("http://"));
     }
-    
-    /** 
+
+    /**
      * Returns size of the file linked from file path
      * Size is returned as a long NOT an int... 0 != 0L
      * 

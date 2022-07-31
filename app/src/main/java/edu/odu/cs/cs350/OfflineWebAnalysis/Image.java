@@ -2,9 +2,19 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
+// TODOs
+// Update documentation of to be in line with javadoc standards
+
+/**
+ * Description...
+ * 
+ * 
+ * @author James Wright
+ * 
+ */
 public class Image extends Resource {
     // data members
-    protected long fileSize;
+    private long fileSize;
 
     /*
      * Default Constructor
@@ -83,20 +93,6 @@ public class Image extends Resource {
         return this.classification.equals(rhsResource.classification) 
         && this.URIpath.equals(rhsResource.URIpath) 
         && (this.fileSize == rhsResource.fileSize);
-    }
-
-    /**
-     * Compare two generators for equivalance based only on the number of
-     * primes generated.
-     */
-    public boolean equals(Image rhs) {
-        // if (!(rhs instanceof PrimeGenerator)) {
-        //     return false;
-        // }C
-
-        Image r = (Image) rhs;
-
-        return this.URIpath.equals(r.URIpath) && this.classification.equals(r.classification) && this.fileSize == r.fileSize;
     }
 
     /*
