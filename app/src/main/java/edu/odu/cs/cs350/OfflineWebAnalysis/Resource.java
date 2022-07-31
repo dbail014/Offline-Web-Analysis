@@ -2,6 +2,16 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
+// TODOs
+// Update documentation of to be in line with javadoc standards
+
+/**
+ * Description...
+ * 
+ * 
+ * @author James Wright
+ * 
+ */
 public abstract class Resource implements Cloneable {
 
     // data members
