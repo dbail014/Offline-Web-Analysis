@@ -44,8 +44,12 @@ dependencies {
     // jsoup HTML parser library @ https://jsoup.org/
     implementation 'org.jsoup:jsoup:1.15.2'
 
+    // https://mavenlibs.com/maven/dependency/com.cedarsoftware/json-io
+    implementation 'com.cedarsoftware:json-io:4.13.0'
+    
     // https://mvnrepository.com/artifact/org.apache.poi/poi
     implementation 'org.apache.poi:poi:3.9'
+
 }
 
 jar {
