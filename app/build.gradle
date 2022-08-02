@@ -54,14 +54,18 @@ jar {
     manifest {
         attributes(
             // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.DocumentParser"
-            "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+            // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+            // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.WebsiteWalker"
+            "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.Website"
         )
     }
 }
 
 run {
     // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.DocumentParser"
-    mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+    // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+    // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.WebsiteWalker"
+    mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.Website"
 }
 
 //------------------------------------------------------------------------------
