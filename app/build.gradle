@@ -35,6 +35,9 @@ dependencies {
 
     // jsoup HTML parser library @ https://jsoup.org/
     implementation 'org.jsoup:jsoup:1.15.2'
+
+    // https://mavenlibs.com/maven/dependency/com.cedarsoftware/json-io
+    implementation 'com.cedarsoftware:json-io:4.13.0'
 }
 
 application {
