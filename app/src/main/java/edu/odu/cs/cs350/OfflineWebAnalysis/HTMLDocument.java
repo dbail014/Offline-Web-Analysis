@@ -35,7 +35,7 @@ public class HTMLDocument {
         System.out.println("Image Vector:");
         System.out.println(image.toString());
         System.out.println("Script Vector:");
-        System.out.println(script.toString());;
+        System.out.println(script.toString());
     }
 
     private final Path localPath;
