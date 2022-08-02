@@ -1,7 +1,7 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.io.File;
-import org.jsoup.nodes.Attributes;
+// import org.jsoup.nodes.Attributes;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -110,7 +110,7 @@ public class DocumentParser {
             URI uri;
             
             // TODO -- might be useful
-            Attributes att = src.attributes();
+            // Attributes att = src.attributes();
             // System.out.println(att.toString());
 
             urlString = src.toString();
@@ -151,7 +151,7 @@ public class DocumentParser {
                 long bytes = 0;
 
                 // TODO -- might be useful
-                Attributes att = src.attributes();
+                // Attributes att = src.attributes();
                 // System.out.println(att.toString());
 
                 // Can probably be refactored -- TODO
@@ -202,7 +202,7 @@ public class DocumentParser {
                 String absoluteFilePath = "";
 
                 // TODO -- might be useful
-                Attributes att = src.attributes();
+                // Attributes att = src.attributes();
                 // System.out.println(att.toString());
 
                 // Can probably be refactored -- TODO
