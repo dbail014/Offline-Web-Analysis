@@ -7,42 +7,79 @@
  */
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
-    id 'java'
-    id 'application'
-    
-    id 'jacoco'
-    // id 'checkstyle'
-    // id 'pmd'
+    id "java"
+    id "application"
 
-    id 'project-report'
+    id "jacoco"
+    id "org.barfuin.gradle.jacocolog" version "2.0.0"
+
+    id "pmd"
+    id "com.github.spotbugs" version "4.6.2"
+    id "checkstyle"
+    id "project-report"
+
+    id "org.jbake.site" version "5.5.0"
+
+    id "org.unbroken-dome.test-sets" version "4.0.0"
+}
+
+java {
+    sourceCompatibility = JavaVersion.toVersion(11)
+    targetCompatibility = JavaVersion.toVersion(11)
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
     mavenCentral()
-
-    // jcenter()
 }
 
 dependencies {
-    // Use JUnit test framework.
+    // Use JUnit test framework
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-
     testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
+
+    // hamcrest test framework
     testImplementation "org.hamcrest:hamcrest-library:2.2"
 
     // jsoup HTML parser library @ https://jsoup.org/
     implementation 'org.jsoup:jsoup:1.15.2'
+
+    // https://mavenlibs.com/maven/dependency/com.cedarsoftware/json-io
+    implementation 'com.cedarsoftware:json-io:4.13.0'
+    
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+    implementation 'org.apache.poi:poi:3.9'
+
 }
 
-application {
-    // Define the main class for the application.
-    mainClass = 'edu.odu.cs.cs350.OfflineWebAnalysis.DocumentParser' 
+jar {
+    archiveBaseName = "PrimeNumbers"
+
+    manifest {
+        attributes(
+            // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.DocumentParser"
+            // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+            // "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.WebsiteWalker"
+            "Main-Class": "edu.odu.cs.cs350.OfflineWebAnalysis.Website"
+        )
+    }
 }
 
-test {
+run {
+    // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.DocumentParser"
+    // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.HTMLDocument"
+    // mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.WebsiteWalker"
+    mainClass = "edu.odu.cs.cs350.OfflineWebAnalysis.Website"
+}
+
+//------------------------------------------------------------------------------
+// Test Configuration
+//------------------------------------------------------------------------------
+testSets {
+    integrationTest
+}
+
+tasks.withType(Test) {
     useJUnitPlatform()
 
     reports {
@@ -54,8 +91,30 @@ test {
     testLogging {
         events "passed", "skipped", "failed", "standardOut", "standardError"
     }
+}
 
+test {
     finalizedBy jacocoTestReport
+}
+
+integrationTest {
+    finalizedBy jacocoIntegrationTestReport
+}
+
+task jacocoMergedTestReport(type: JacocoReport,
+    dependsOn: ["test", "integrationTest", "jacocoTestReport", "jacocoIntegrationTestReport"])
+{
+    additionalSourceDirs.from = files(sourceSets.main.allSource.srcDirs)
+    sourceDirectories.from = files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from = files(sourceSets.main.output)
+
+    executionData.from = fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    reports {
+        html.required = true
+        xml.required = false
+        csv.required = true
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -68,49 +127,206 @@ javadoc {
 //------------------------------------------------------------------------------
 // Analysis Tool(s)
 //------------------------------------------------------------------------------
-// pmd {
-//     toolVersion = "6.21.0"
-//     ignoreFailures = true
-//     ruleSets = [
-//         "category/java/bestpractices.xml",
-//         "category/java/codestyle.xml",
-//         "category/java/design.xml",
-//         "category/java/errorprone.xml",
-//         "category/java/performance.xml"
-//     ]
-// }
+pmd {
+    toolVersion = "6.21.0"
+    ignoreFailures = true
+    ruleSets = [
+        "category/java/bestpractices.xml",
+        "category/java/codestyle.xml",
+        "category/java/design.xml",
+        "category/java/errorprone.xml",
+        "category/java/performance.xml"
+    ]
+}
 
-// pmdTest {
-//     enabled = false
-// }
+pmdTest {
+    enabled = false
+}
 
-// spotbugsMain {
-//     ignoreFailures = true
-//     effort = "max"
-//     reportLevel = "medium"
+pmdIntegrationTest {
+    enabled = false
+}
 
-//     reports {
-//         xml.enabled = true
-//         html.enabled = true
-//     }
-// }
+spotbugsMain {
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "medium"
 
-// spotbugsTest {
-//     enabled = false
-// }
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
 
-// checkstyle {
-//     toolVersion "8.42"
-//     ignoreFailures = true
-//     showViolations = false
-// }
+spotbugsTest {
+    enabled = false
+}
 
-// tasks.withType(Checkstyle) {
-//     reports {
-//         html.destination project.file("build/reports/checkstyle/main.html")
-//     }
-// }
+spotbugsIntegrationTest {
+    enabled = false
+}
 
-// checkstyleTest {
-//     enabled = false
-// }
+checkstyle {
+    toolVersion "8.42"
+    ignoreFailures = true
+    showViolations = false
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        html.destination project.file("build/reports/checkstyle/main.html")
+    }
+}
+
+checkstyleTest {
+    enabled = false
+}
+
+checkstyleIntegrationTest {
+    enabled = false
+}
+
+//------------------------------------------------------------------------------
+// Deploy Steps (Convenience Tasks)
+//------------------------------------------------------------------------------
+task reportsAndStuff(dependsOn: [
+    "test",
+    "jacocoTestReport",
+    "jacocoIntegrationTestReport",
+    "jacocoMergedTestReport",
+    "checkstyleMain",
+    "javadoc",
+    "check",
+    "spotbugsMain",
+    "projectReport"])
+{
+    description "Generate all reports and documentation for this project."
+}
+
+task copyReports(type: Copy)
+{
+    dependsOn "reportsAndStuff"
+
+    from "build/reports"
+    into "build/tmp/website/assets"
+
+    description "Copy all reports into \"website\" directory."
+}
+
+task copyDocumentation(type: Copy)
+{
+    dependsOn "reportsAndStuff"
+
+    from "build/docs"
+    into "build/tmp/website/assets"
+
+    description "Copy Javadoc output into \"website\" directory."
+}
+
+
+//------------------------------------------------------------------------------
+// JBake Configuration
+//------------------------------------------------------------------------------
+task copyJBakeTemplates(type: Copy)
+{
+    from "src/jbake"
+    into "build/tmp/website"
+}
+
+task doAllTheCopying(dependsOn: [
+    "copyReports",
+    "copyDocumentation",
+    "copyJBakeTemplates"])
+{
+    description "Copy everything into the JBake working directory."
+}
+
+task buildHomePage(dependsOn: copyJBakeTemplates)
+{
+    // Note that "../README.md" is not "./README.md"
+    inputs.files ("build/tmp/website/content/home0.md", "./README.md")
+    outputs.file ("build/tmp/website/content/home.md")
+
+    doLast  {
+        outputs.files.singleFile.withOutputStream { out ->
+            for (file in inputs.files) file.withInputStream {
+                out << it << '\n'
+            }
+        }
+    }
+}
+
+jbake {
+    srcDirName = "build/tmp/website"
+}
+
+task setUpWebsite()
+{
+    dependsOn "buildHomePage"
+    dependsOn "doAllTheCopying"
+}
+
+bake {
+    dependsOn "setUpWebsite"
+}
+
+//------------------------------------------------------------------------------
+// Deploy/Update Project Website on GitHub Pages
+//------------------------------------------------------------------------------
+def websiteRepo = "git@github.com:cstkennedy/Gradle-2-Report-Website.git"
+
+task clearPages(type: Delete)
+{
+    delete "build/gh-pages"
+}
+
+task clonePagesRepo(dependsOn: ["clearPages"])
+{
+    doLast {
+        exec {
+            workingDir = "."
+            commandLine = ["git", "clone", websiteRepo, "build/gh-pages"]
+        }
+        exec {
+            workingDir = "build/gh-pages"
+            commandLine = ["git", "config", "user.email", "\"tkennedy@cs.odu.edu\""]
+        }
+        exec {
+            workingDir = "build/gh-pages"
+            commandLine = ["git", "config", "user.name", "\"Thomas J. Kennedy\""]
+        }
+    }
+}
+
+task copyJBakePagesForUse(dependsOn: ["bake", "clonePagesRepo"])
+{
+    group "GitHub Pages"
+
+    doLast {
+        ant.copy (todir: "build/gh-pages") {
+            fileset(dir: "build/jbake")
+        }
+    }
+}
+
+task updateGitHubPages(dependsOn: ["copyJBakePagesForUse"])
+{
+    group "GitHub Pages"
+    description "Copy everything into \"gh-pages\" directory and push to Report Website."
+
+    doLast {
+        def pagesDir = "$buildDir/gh-pages"
+        exec {
+            workingDir = "$buildDir/gh-pages"
+            commandLine = ["git", "add", "."]
+        }
+        exec {
+            workingDir = "$buildDir/gh-pages"
+            commandLine = ["git", "commit", "-m", "Update report site"]
+        }
+        exec {
+            workingDir = "$buildDir/gh-pages"
+            commandLine = ["git", "push"]
+        }
+    }
+}
