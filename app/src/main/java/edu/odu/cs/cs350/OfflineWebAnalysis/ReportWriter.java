@@ -12,7 +12,7 @@ public class ReportWriter{
 
 //naming outPut files
 // type of file will be json, txt or xlsx
-public void nameFile(String typeofFile){
+public String nameFile(){
     //getting current year, month, day, hour, minute,second
     LocalDate date = LocalDate.now();
     Calendar time = Calendar.getInstance();
@@ -27,8 +27,8 @@ public void nameFile(String typeofFile){
 
 
 // creating the file
-    File myFile = new File(""+currentYear + currentMonth + 
-    currentDay + "-" + currentHour + currentMinute + currentSecond + "-" + "summary." + typeofFile);
+    return ""+currentYear + currentMonth + 
+    currentDay + "-" + currentHour + currentMinute + currentSecond + "-" + "summary.";
 
 // need to decide if file will be made here or in subclass'
 }
