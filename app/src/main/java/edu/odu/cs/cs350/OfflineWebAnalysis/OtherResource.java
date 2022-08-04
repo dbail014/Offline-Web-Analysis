@@ -2,18 +2,15 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
-// TODOs
-// Update documentation of to be in line with javadoc standards
-
 /**
- * Description...
- * 
+ * The Stylesheet class extends the Resource class. This class allows an application to store information for a single stylesheet resources for analysis and output.
  * 
  * @author James Wright
  * 
  */
 public class OtherResource extends Resource {
     private TargetType targetType;
+    private long fileSize;
 
     /*
      * Default Constructor
@@ -22,21 +19,22 @@ public class OtherResource extends Resource {
     {
         super();
         this.targetType = TargetType.ARCHIVE;
+        this.fileSize = 0;
     }
 
     /*
      * Non-default constructor
      */
-    public OtherResource(URI _URIpath, Classification _classification, TargetType _targetType)
+    public OtherResource(URI _URIpath, Classification _classification, TargetType _targetType, long _fileSize)
     {
         super(_URIpath, _classification);
         this.targetType = _targetType;
     }
 
     /**
-     * Create a copy of this Image.
+     * Create a copy of this OtherResource.
      *
-     * @param src consumable item to duplicate
+     * @param src OtherResource to duplicate
      */
     public OtherResource(OtherResource src)
     {
@@ -58,7 +56,25 @@ public class OtherResource extends Resource {
     }
 
     /*
-     * Clone--i.e., copy--this Item.
+     * Retrieve File Size
+     * 
+     * @return current File Size
+     */
+    public long getFileSize() {
+        return this.fileSize;
+    }
+
+    /*
+     * Update File Size
+     * 
+     * @param _fileSize
+     */
+    public void setFileSize(long _fileSize) {
+        this.fileSize = _fileSize;
+    }
+
+    /*
+     * Clone--i.e., copy--this OtherResource.
      */
     @Override
     public Resource clone() {
@@ -66,6 +82,7 @@ public class OtherResource extends Resource {
         src.URIpath = this.URIpath;
         src.classification = this.classification;
         src.targetType = this.targetType;
+        src.fileSize = this.fileSize;
         return src;
     }
 
@@ -76,15 +93,12 @@ public class OtherResource extends Resource {
      */
     @Override
     public boolean equals(Object rhs) {
-        if (!(rhs instanceof Image)) {
-            return false;
-        }
-
         OtherResource rhsResource = (OtherResource) rhs;
 
         return this.classification.equals(rhsResource.classification)
                 && this.URIpath.equals(rhsResource.URIpath)
-                && (this.targetType == rhsResource.targetType);
+                && (this.targetType == rhsResource.targetType)
+                && (this.fileSize == rhsResource.fileSize);
     }
 
     /*
@@ -94,7 +108,8 @@ public class OtherResource extends Resource {
     public int hashCode() {
         return (this.URIpath != null ? this.URIpath.hashCode() : 0)
                 + this.classification.hashCode()
-                + this.targetType.hashCode();
+                + this.targetType.hashCode()
+                + Long.hashCode(this.fileSize);
     }
 
     /*
@@ -102,7 +117,6 @@ public class OtherResource extends Resource {
      */
     @Override
     public String toString() {
-        // TODO
-        return "";
+        return "{" + this.URIpath.toString() + ", \n" + this.targetType.toString() + ", \n" + this.fileSize + "}\n";
     }
 }

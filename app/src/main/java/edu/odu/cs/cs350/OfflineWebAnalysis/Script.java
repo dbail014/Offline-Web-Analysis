@@ -2,12 +2,8 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
-// TODOs
-// Update documentation of to be in line with javadoc standards
-
 /**
- * Description...
- * 
+ * The Script class extends the Resource class. This class allows an application to store information for a single JavaScript resources for analysis and output.
  * 
  * @author James Wright
  * 
@@ -30,9 +26,9 @@ public class Script extends Resource {
     }
 
     /**
-     * Create a copy of this Image.
+     * Create a copy of this Script.
      *
-     * @param src consumable item to duplicate
+     * @param src Script to duplicate
      */
     public Script(Script src)
     {
@@ -40,7 +36,7 @@ public class Script extends Resource {
     }
 
     /*
-     * Clone--i.e., copy--this Item.
+     * Clone--i.e., copy--this Script.
      */
     @Override
     public Resource clone() {
@@ -57,16 +53,15 @@ public class Script extends Resource {
      */
     @Override
     public boolean equals(Object rhs) {
-        if (!(rhs instanceof Script)) {
-            return false;
-        }
-
         Script rhsResource = (Script) rhs;
 
         return this.classification.equals(rhsResource.classification)
                 && this.URIpath.equals(rhsResource.URIpath);
     }
 
+    /*
+     * Generate a hash code
+     */
     @Override
     public int hashCode() {
         return (this.URIpath != null ? this.URIpath.hashCode() : 0)
@@ -74,7 +69,7 @@ public class Script extends Resource {
     }
 
     /*
-     * *Print* one Image.
+     * *Print* one Script.
      */
     @Override
     public String toString() {

@@ -12,11 +12,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 /**
- * Description...
- * 
- * 
  * @author James Wright
- * 
  */
 @TestMethodOrder(MethodOrderer.MethodName.class)
 public class TestImage {
@@ -25,15 +21,17 @@ public class TestImage {
     URI test1Uri;
     URI test2URI;
     URI test3URI;
+    URI test4URI;
 
     @BeforeEach
-    public void setUp() throws URISyntaxException { // DONE
+    public void setUp() throws URISyntaxException {
         emptyImage = new Image();
         testImage = new Image(); 
 
         test1Uri = new URI("./user/someDir/file.html");
         test2URI = new URI("./user/OtherDir/file.html");
-        test3URI = new URI("www.google.com");
+        test3URI = new URI("https://www.google.com");
+        test4URI = new URI("https://www.example.com");
         
         testImage.setClassification(Classification.INTERNAL);
         testImage.setFileSize(1000);
@@ -121,7 +119,17 @@ public class TestImage {
 
     @Test
     public void testToString() {
-        // TODO -- write test
-    }
+        Image notSame = new Image();
 
+        testImage.setClassification(Classification.INTERNAL);
+        testImage.setURIPath(test3URI);
+
+        notSame.setClassification(Classification.EXTERNAL);
+        notSame.setURIPath(test4URI);
+
+        assertThat(notSame.toString().isEmpty(), is(false));
+        assertThat(testImage.toString().isEmpty(), is(false));
+
+        assertThat(notSame.toString(), not(equalTo(testImage.toString())));
+    }
 }

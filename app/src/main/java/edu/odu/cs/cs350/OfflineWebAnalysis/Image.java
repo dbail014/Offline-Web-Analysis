@@ -2,12 +2,8 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
-// TODOs
-// Update documentation of to be in line with javadoc standards
-
 /**
- * Description...
- * 
+ * The Image class extends the Resource class. This class allows an application to store information for a single image resources for analysis and output.
  * 
  * @author James Wright
  * 
@@ -37,7 +33,7 @@ public class Image extends Resource {
     /**
      * Create a copy of this Image.
      *
-     * @param src consumable item to duplicate
+     * @param src Image to duplicate
      */
     public Image(Image src)
     {
@@ -64,7 +60,7 @@ public class Image extends Resource {
     }
 
     /*
-     * Clone--i.e., copy--this Item.
+     * Clone--i.e., copy--this Image.
      */
     @Override
     public Resource clone()
@@ -84,10 +80,6 @@ public class Image extends Resource {
     @Override
     public boolean equals(Object rhs)
     {
-        if (!(rhs instanceof Image)) {
-            return false;
-        }
-
         Image rhsResource = (Image) rhs;
 
         return this.classification.equals(rhsResource.classification) 

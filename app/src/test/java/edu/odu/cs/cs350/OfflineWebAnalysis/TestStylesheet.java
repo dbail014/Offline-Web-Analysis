@@ -25,6 +25,7 @@ public class TestStylesheet {
     URI test1Uri;
     URI test2URI;
     URI test3URI;
+    URI test4URI;
 
     @BeforeEach
     public void setUp() throws URISyntaxException { // DONE
@@ -33,7 +34,8 @@ public class TestStylesheet {
 
         test1Uri = new URI("./user/someDir/file.html");
         test2URI = new URI("./user/OtherDir/file.html");
-        test3URI = new URI("www.google.com");
+        test3URI = new URI("https://www.google.com");
+        test4URI = new URI("https://www.example.com");
         
         testStylesheet.setClassification(Classification.INTERNAL);
         testStylesheet.setURIPath(test1Uri);
@@ -108,7 +110,18 @@ public class TestStylesheet {
 
     @Test
     public void testToString() {
-        // TODO -- write test
+        Anchor notSame = new Anchor();
+
+        testStylesheet.setClassification(Classification.INTERNAL);
+        testStylesheet.setURIPath(test3URI);
+
+        notSame.setClassification(Classification.EXTERNAL);
+        notSame.setURIPath(test4URI);
+
+        assertThat(notSame.toString().isEmpty(), is(false));
+        assertThat(testStylesheet.toString().isEmpty(), is(false));
+
+        assertThat(notSame.toString(), not(equalTo(testStylesheet.toString())));
     }
 
 }

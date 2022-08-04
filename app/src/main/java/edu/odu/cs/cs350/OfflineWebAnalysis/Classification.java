@@ -1,17 +1,18 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 /**
- * Description...
- * 
+ * Enum for classification of resource as internal (same as intra-site), intra-page, or external
  * 
  * @author James Wright
- * 
  */
 enum Classification {
     INTERNAL,
     INTRAPAGE,
     EXTERNAL;
 
+    /*
+     * *Print* classification.
+     */
     public String toString() {
         String classificationString = "";
         switch(this) {

@@ -2,12 +2,8 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
-// TODOs
-// Update documentation of to be in line with javadoc standards
-
 /**
- * Description...
- * 
+ * The Anchor class extends the Resource class. This class allows an application to store information for a single anchor resources for analysis and output.
  * 
  * @author James Wright
  * 
@@ -29,16 +25,16 @@ public class Anchor extends Resource {
     }
 
     /**
-     * Create a copy of this Image.
+     * Create a copy of this Anchor.
      *
-     * @param src consumable item to duplicate
+     * @param src anchor to duplicate
      */
     public Anchor(Anchor src) {
         super(src.URIpath, src.classification);
     }
 
     /*
-     * Clone--i.e., copy--this Item.
+     * Clone--i.e., copy--this Anchor.
      */
     @Override
     public Resource clone() {
@@ -55,10 +51,6 @@ public class Anchor extends Resource {
      */
     @Override
     public boolean equals(Object rhs) {
-        if (!(rhs instanceof Anchor)) {
-            return false;
-        }
-
         Anchor rhsResource = (Anchor) rhs;
 
         return this.classification.equals(rhsResource.classification)
