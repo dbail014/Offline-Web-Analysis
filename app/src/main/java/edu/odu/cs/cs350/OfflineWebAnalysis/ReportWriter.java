@@ -10,6 +10,10 @@ import java.io.IOException;
 // superclass for excelWriter, jsonWriter, textWriter
 public class ReportWriter{
 
+    //defult constructor, wont be needed in most cases
+    public ReportWriter(){
+
+    }
 //naming outPut files
 // type of file will be json, txt or xlsx
 public static String nameFile(){

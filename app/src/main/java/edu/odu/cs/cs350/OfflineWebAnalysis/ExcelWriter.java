@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.lang.String;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import java.util.Vector;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
@@ -28,10 +32,38 @@ public class ExcelWriter extends ReportWriter {
         //Create row object
     //    XSSFRow row;
 
-        //declaring amount of rows
+        //declaring amount of rows, hardcoded to 4 until determined
         int tempSize = 4;
         String rowcount = Integer.toString(2);
         
+
+
+        // fething the data
+
+        Vector<Anchor> anchor = new Vector<Anchor>(htmlDoc.getAnchors());
+        Vector<Image> image = new Vector<Image>(htmlDoc.getImages());
+        Vector<Script> script = new Vector<Script>(htmlDoc.getScripts());
+
+        String stringPath = args[0];
+        Path path = Paths.get(stringPath);
+        HTMLDocument htmlDoc = new DocumentParser(path).build();
+
+        Website site = new Website();
+        Vector<HTMLDocument> pages = site.getAllPages();
+
+
+        //getting the counts
+        int pagecount = pages.size() ;
+        String imagecount =Integer.toString(htmlDoc.getImages().size());
+        int cssCount =1;
+        String scriptCount = Integer.toString(htmlDoc.getScripts().size());
+        int linkIPCount;
+        int linkINCount;
+        int linkEXCount;
+
+        
+        //
+
 
         //collecting data that needs to be written
         Map < String, Object[] > empinfo = new TreeMap < String, Object[] >();
@@ -39,12 +71,15 @@ public class ExcelWriter extends ReportWriter {
          "Page", "#Images", "#CSS","Scripts","#Links (Intra-Page)","#Links(Internal)","#Links (External)" });
       
          //adding the data, depening on amount
-         
-         for(int x=0; x<tempSize ; x++)
+         // setting starting page number
+         int page = 1;
+         for(int x=0; x<pagecount ; x++)
          {
 
             empinfo.put( rowcount, new Object[] {
-                "Page", "#Images", "#CSS","Scripts","#Links (Intra-Page)","#Links(Internal)","#Links (External)" });
+                page, imagecount, "#CSS",scriptCount,"#Links (Intra-Page)","#Links(Internal)","#Links (External)" });
+                
+                page++;
          }
 
          //Iterate over data and write to sheet
