@@ -2,13 +2,8 @@ package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 import java.net.URI;
 
-// TODOs
-// Update documentation of to be in line with javadoc standards
-
 /**
- * Description...
- * 
- * 
+ * Resource is the abstract base class for all resource types. This allows an application to store information on various resource types for analysis and output.
  * @author James Wright
  * 
  */
@@ -84,7 +79,7 @@ public abstract class Resource implements Cloneable {
     public abstract int hashCode();
 
     /*
-     * Duplicate this item
+     * Duplicate this Resource
      */
     @Override
     public abstract Resource clone();

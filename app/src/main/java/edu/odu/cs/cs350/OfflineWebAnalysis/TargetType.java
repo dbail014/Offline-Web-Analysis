@@ -1,17 +1,19 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
 /**
- * Description...
- * 
+ * Enum for classifying type of a resource as archive, video, audio, or other
  * 
  * @author James Wright
- * 
  */
 public enum TargetType {
     ARCHIVE,
     VIDEO,
-    AUDIO;
+    AUDIO,
+    OTHER;
 
+    /*
+     * *Print* TargetType
+     */
     public String toString() {
         String targetTypeString = "";
         switch(this) {
@@ -23,6 +25,9 @@ public enum TargetType {
                 break;
             case AUDIO: 
                 targetTypeString = "audio";
+                break;
+            case OTHER:
+                targetTypeString = "other";
         }
         return targetTypeString;
     }

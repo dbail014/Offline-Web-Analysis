@@ -25,6 +25,7 @@ public class TestOtherResource {
     URI test1Uri;
     URI test2URI;
     URI test3URI;
+    URI test4URI;
 
     @BeforeEach
     public void setUp() throws URISyntaxException { // DONE
@@ -33,7 +34,8 @@ public class TestOtherResource {
 
         test1Uri = new URI("./user/someDir/file.html");
         test2URI = new URI("./user/OtherDir/file.html");
-        test3URI = new URI("www.google.com");
+        test3URI = new URI("https://www.google.com");
+        test4URI = new URI("https://www.example.com");
 
         testResource.setClassification(Classification.INTERNAL);
         testResource.setTargetType(TargetType.AUDIO);
@@ -53,7 +55,7 @@ public class TestOtherResource {
 
     @Test
     public void testNonDefaultConstructor() {
-        OtherResource nonDefaultResource = new OtherResource(test2URI, Classification.INTERNAL, TargetType.VIDEO);
+        OtherResource nonDefaultResource = new OtherResource(test2URI, Classification.INTERNAL, TargetType.VIDEO, 0L);
 
         // Checks
         assertThat(nonDefaultResource.getClassification(), equalTo(Classification.INTERNAL));
@@ -116,5 +118,21 @@ public class TestOtherResource {
         OtherResource generic = new OtherResource();
 
         assertThat(testResource.hashCode(), not(equalTo(generic.hashCode())));
+    }
+
+    @Test
+    public void testToString() {
+        OtherResource notSame = new OtherResource();
+
+        testResource.setClassification(Classification.INTERNAL);
+        testResource.setURIPath(test3URI);
+
+        notSame.setClassification(Classification.EXTERNAL);
+        notSame.setURIPath(test4URI);
+
+        assertThat(notSame.toString().isEmpty(), is(false));
+        assertThat(testResource.toString().isEmpty(), is(false));
+
+        assertThat(notSame.toString(), not(equalTo(testResource.toString())));
     }
 }

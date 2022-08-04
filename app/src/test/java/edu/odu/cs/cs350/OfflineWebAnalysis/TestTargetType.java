@@ -21,5 +21,6 @@ public class TestTargetType {
         assertThat(TargetType.ARCHIVE.toString(), equalTo("archive"));
         assertThat(TargetType.AUDIO.toString(), equalTo("audio"));
         assertThat(TargetType.VIDEO.toString(), equalTo("video"));
+        assertThat(TargetType.OTHER.toString(), equalTo("other"));
     }
 }
