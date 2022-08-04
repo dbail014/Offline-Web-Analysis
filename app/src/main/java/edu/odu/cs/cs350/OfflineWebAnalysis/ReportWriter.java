@@ -12,7 +12,7 @@ public class ReportWriter{
 
 //naming outPut files
 // type of file will be json, txt or xlsx
-public String nameFile(){
+public static String nameFile(){
     //getting current year, month, day, hour, minute,second
     LocalDate date = LocalDate.now();
     Calendar time = Calendar.getInstance();
