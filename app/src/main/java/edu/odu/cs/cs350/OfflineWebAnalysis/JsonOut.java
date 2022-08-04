@@ -6,7 +6,7 @@ import java.io.IOException;
 // not importing for some reason?
 import com.cedarsoftware.util.io.JsonObject;
 import com.cedarsoftware.util.io.JsonWriter;
-import com.cedarsoftware.util.io.JsonReader;
+import com.cedarsoftware.util.io.JsonReader; 
 
 
 // TODOs
@@ -40,7 +40,7 @@ public class JsonOut extends ReportWriter {
         JsonObj.put("basePath", " ");
         JsonObj.put("urls", " ");
 
-        JsonObj.put("pages", "");
+        JsonObj.put("pages", " ");
         JsonObj.put("path", " ");
         JsonObj.put("imageCount", " ");
         JsonObj.put("jsCount"," ");
@@ -53,14 +53,14 @@ public class JsonOut extends ReportWriter {
         JsonObj.put("images", "");
         JsonObj.put("path", " ", "pageCount", " ", "usedOn", " ");
 
-        JsonObj.put("files", "");        
-        JsonObj.put("archive", "");
+        JsonObj.put("files", " ");        
+        JsonObj.put("archive", " ");
         JsonObj.put("path", " ", "size", " ");
-        JsonObj.put("video", "");
+        JsonObj.put("video", " ");
         JsonObj.put("path", " ", "size", " ");
-        JsonObj.put("audio", "");
+        JsonObj.put("audio", " ");
         JsonObj.put("path", " ", "size", " ");
-        JsonObj.put("other", "");
+        JsonObj.put("other", " ");
         JsonObj.put("path", " ", "size", " ");
 
     }
@@ -69,7 +69,7 @@ public class JsonOut extends ReportWriter {
      * Non-Default Constructor
      */
     public JsonOut(JsonObject _JSONObject) {
-        JsonObj.put("basePath", " ");
+        JsonObj.put("basePath", );
         JsonObj.put("urls", " ");
 
         JsonObj.put("pages", "");
@@ -97,17 +97,7 @@ public class JsonOut extends ReportWriter {
     }
 
 
-    /** TODO - is a copy constructor necessary for this class?
-     * Copy Constructor
-     * 
-     */
-    public JsonOut(JsonWriter src) {
-
-    }
-
-
-
-    /** TODO - FIX OJBECT SYNTAX
+    /** TODO
      * Retrieve JSON Data
      * 
      * @return current JSON data
@@ -117,7 +107,7 @@ public class JsonOut extends ReportWriter {
     }
 
     
-    /** TODO FIX OJBECT SYNTAX
+    /** TODO
      * Update JSON Object
      * 
      * @param _JSONObject replacement JsonObj
@@ -134,7 +124,7 @@ public class JsonOut extends ReportWriter {
         
         try{
 
-            JsonWriter writer = new JsonWriter(ReportWriter.myFile + ".json");
+            JsonWriter writer = new JsonWriter(nameFile() + ".json");
 
             writer.write(JsonObj);
             writer.close();
