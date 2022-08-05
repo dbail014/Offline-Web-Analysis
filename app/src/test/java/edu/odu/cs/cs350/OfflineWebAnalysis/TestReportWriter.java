@@ -1,32 +1,28 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
+
 import java.io.File; 
 import java.util.Date;
 import java.util.concurrent.Callable;
+
+import org.junit.jupiter.api.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.MethodOrderer;
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Calendar;
 import java.io.IOException; 
 
- /** ..
-  *@author John Wasikye
-  */
-// superclass for excelWriter, jsonWriter, textWriter
-public class ReportWriter{
-
-    //defult constructor, wont be needed in most cases
-    public ReportWriter(){
-
-    }
-//naming outPut files
-// type of file will be json, txt or xlsx
-
 /**
- *naming outPut files
-* type of file will be json, txt or xlsx
-*
- * @return string
+ * @author John Wasikye
  */
-public static String nameFile(){
+public class TestReportWriter{
+
+    @Test
+    public void testNamefile(){
+
     //getting current year, month, day, hour, minute,second
     LocalDate date = LocalDate.now();
     Calendar time = Calendar.getInstance();
@@ -36,15 +32,11 @@ public static String nameFile(){
     int currentHour = time.get(Calendar.HOUR_OF_DAY);
     int currentMinute = time.get(Calendar.MINUTE);
     int currentSecond = time.get(Calendar.SECOND);
+
+
+    assertThat(ReportWriter.nameFile(), equalTo(""+currentYear + currentMonth + 
+    currentDay + "-" + currentHour + currentMinute + currentSecond + "-" + "summary."));
+    }
     
-
-
-
-// creating the file
-    return ""+currentYear + currentMonth + 
-    currentDay + "-" + currentHour + currentMinute + currentSecond + "-" + "summary.";
-
-// need to decide if file will be made here or in subclass'
 }
 
-}
