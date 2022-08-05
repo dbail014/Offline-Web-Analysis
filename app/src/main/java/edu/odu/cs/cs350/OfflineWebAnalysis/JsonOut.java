@@ -1,12 +1,18 @@
 package edu.odu.cs.cs350.OfflineWebAnalysis;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Vector;
+import java.util.stream.Stream;
 
 // not importing for some reason?
-// import com.cedarsoftware.util.io.JsonObject;
-// import com.cedarsoftware.util.io.JsonWriter;
-// import com.cedarsoftware.util.io.JsonReader; 
+import com.cedarsoftware.util.io.JsonObject;
+import com.cedarsoftware.util.io.JsonWriter;
+import com.cedarsoftware.util.io.JsonReader;
 
 
 // TODOs
@@ -30,71 +36,71 @@ import java.io.IOException;
 public class JsonOut extends ReportWriter {
     
     // Data Members
-    // private JsonObject JsonObj = new JsonObject();
-    // public static final String PRETTY_PRINT;
+    private JsonObject JsonObj = new JsonObject();
+
 
     /* TODO
      * Default Constructor 
      */
     public JsonOut() {
-        // JsonObj.put("basePath", " ");
-        // JsonObj.put("urls", " ");
+        JsonObj.put("basePath", " ");
+        JsonObj.put("urls", " ");
 
-        // JsonObj.put("pages", " ");
-        // JsonObj.put("path", " ");
-        // JsonObj.put("imageCount", " ");
-        // JsonObj.put("jsCount"," ");
-        // JsonObj.put("cssCount"," ");
-        // JsonObj.put("imagePaths"," ");
-        // JsonObj.put("scriptPaths", " ");
-        // JsonObj.put("cssPaths", " ");
-        // JsonObj.put("linkCount", " ");
+        JsonObj.put("pages", " ");
+        JsonObj.put("path", " ");
+        JsonObj.put("imageCount", " ");
+        JsonObj.put("jsCount"," ");
+        JsonObj.put("cssCount"," ");
+        JsonObj.put("imagePaths"," ");
+        JsonObj.put("scriptPaths", " ");
+        JsonObj.put("cssPaths", " ");
+        JsonObj.put("linkCount", " ");
 
-        // JsonObj.put("images", "");
-        // JsonObj.put("path", " ", "pageCount", " ", "usedOn", " ");
+        JsonObj.put("images", "");
+        JsonObj.put("path", " ");
 
-        // JsonObj.put("files", " ");        
-        // JsonObj.put("archive", " ");
-        // JsonObj.put("path", " ", "size", " ");
-        // JsonObj.put("video", " ");
-        // JsonObj.put("path", " ", "size", " ");
-        // JsonObj.put("audio", " ");
-        // JsonObj.put("path", " ", "size", " ");
-        // JsonObj.put("other", " ");
-        // JsonObj.put("path", " ", "size", " ");
+        JsonObj.put("files", " ");        
+        JsonObj.put("archive", " ");
+        JsonObj.put("path", " ");
+        JsonObj.put("video", " ");
+        JsonObj.put("path", " ");
+        JsonObj.put("audio", " ");
+        JsonObj.put("path", " ");
+        JsonObj.put("other", " ");
+        JsonObj.put("path", " ");
 
     }
-    
+
     /* TODO - implement data member variables
      * Non-Default Constructor
      */
-    // public JsonOut(JsonObject _JSONObject) {
-    //     JsonObj.put("basePath", );
-    //     JsonObj.put("urls", " ");
+    public JsonOut(JsonObject _JSONObject) {
+        JsonObj.put("basePath", "");
+        JsonObj.put("urls", " ");
 
-    //     JsonObj.put("pages", "");
-    //     JsonObj.put("path", " ");
-    //     JsonObj.put("imageCount", " ");
-    //     JsonObj.put("jsCount"," ");
-    //     JsonObj.put("cssCount"," ");
-    //     JsonObj.put("imagePaths"," ");
-    //     JsonObj.put("scriptPaths", " ");
-    //     JsonObj.put("cssPaths", " ");
-    //     JsonObj.put("linkCount", " ");
+        JsonObj.put("pages", "");
+        JsonObj.put("path", " ");
+        JsonObj.put("imageCount", "");
+        JsonObj.put("jsCount"," ");
+        JsonObj.put("cssCount"," ");
+        JsonObj.put("imagePaths"," ");
+        JsonObj.put("scriptPaths", " ");
+        JsonObj.put("cssPaths", " ");
+        JsonObj.put("linkCount", " ");
 
-    //     JsonObj.put("images", "");
-    //     JsonObj.put("path", " ", "pageCount", " ", "usedOn", " ");
+        JsonObj.put("images", "");
+        JsonObj.put("path", " ");
 
-    //     JsonObj.put("files", "");        
-    //     JsonObj.put("archive", "");
-    //     JsonObj.put("path", " ", "size", " ");
-    //     JsonObj.put("video", "");
-    //     JsonObj.put("path", " ", "size", " ");
-    //     JsonObj.put("audio", "");
-    //     JsonObj.put("path", " ", "size", " ");
-    //     JsonObj.put("other", "");
-    //     JsonObj.put("path", " ", "size", " ");
-    // }
+        JsonObj.put("files", "");        
+        JsonObj.put("archive", "");
+        JsonObj.put("path", " ");
+        JsonObj.put("video", "");
+        JsonObj.put("path", " ");
+        JsonObj.put("audio", "");
+        JsonObj.put("path", " ");
+        JsonObj.put("other", "");
+        JsonObj.put("path", " ");
+    }
 
 
     /** TODO
@@ -102,9 +108,11 @@ public class JsonOut extends ReportWriter {
      * 
      * @return current JSON data
      */
-    // public JsonObject getJSONObject() {
-
-    // }
+    public JsonObject getJSONObject() {
+        
+        
+        return JsonObj;
+    }
 
     
     /** TODO
@@ -112,28 +120,28 @@ public class JsonOut extends ReportWriter {
      * 
      * @param _JSONObject replacement JsonObj
      */
-    // public void setJSONObject(JsonObject _JSONObject) {
+    public void setJSONObject(JsonObject _JSONObject) {
 
-    // }
+    }
 
     /*
      * Write Json file
      * 
      */
-    public void writeJSON() {
+    public void writeJSON() throws IOException {
         
-    //     try{
+        String fileName = nameFile();
 
-    //         // JsonWriter writer = new JsonWriter(nameFile() + ".json");
+        FileOutputStream out = new FileOutputStream(
+            new File(fileName +".json"));
+   
 
-    //         // writer.write(JsonObj);
-    //         writer.close();
+        JsonWriter writer = new JsonWriter(out);
 
-    //     } catch(IOException e) {
-    //         e.printStackTrace();
-    //     }
-
+        writer.write(JsonObj);
+        writer.close();
     }
+
 
 
 
