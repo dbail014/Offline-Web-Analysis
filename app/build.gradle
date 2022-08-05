@@ -14,8 +14,8 @@ plugins {
     id "org.barfuin.gradle.jacocolog" version "2.0.0"
 
     id "pmd"
-    // id "com.github.spotbugs" version "4.6.2"
-    // id "checkstyle"
+    id "com.github.spotbugs" version "4.6.2"
+    id "checkstyle"
     id "project-report"
 
     id "org.jbake.site" version "5.5.0"
@@ -143,44 +143,44 @@ pmdIntegrationTest {
     enabled = false
 }
 
-// spotbugsMain {
-//     ignoreFailures = true
-//     effort = "max"
-//     reportLevel = "medium"
+spotbugsMain {
+    ignoreFailures = true
+    effort = "max"
+    reportLevel = "medium"
 
-//     reports {
-//         xml.enabled = true
-//         html.enabled = true
-//     }
-// }
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
 
-// spotbugsTest {
-//     enabled = false
-// }
+spotbugsTest {
+    enabled = false
+}
 
-// spotbugsIntegrationTest {
-//     enabled = false
-// }
+spotbugsIntegrationTest {
+    enabled = false
+}
 
-// checkstyle {
-//     toolVersion "8.42"
-//     ignoreFailures = true
-//     showViolations = false
-// }
+checkstyle {
+    toolVersion "8.42"
+    ignoreFailures = true
+    showViolations = false
+}
 
-// tasks.withType(Checkstyle) {
-//     reports {
-//         html.destination project.file("build/reports/checkstyle/main.html")
-//     }
-// }
+tasks.withType(Checkstyle) {
+    reports {
+        html.destination project.file("build/reports/checkstyle/main.html")
+    }
+}
 
-// checkstyleTest {
-//     enabled = false
-// }
+checkstyleTest {
+    enabled = false
+}
 
-// checkstyleIntegrationTest {
-//     enabled = false
-// }
+checkstyleIntegrationTest {
+    enabled = false
+}
 
 //------------------------------------------------------------------------------
 // Deploy Steps (Convenience Tasks)
