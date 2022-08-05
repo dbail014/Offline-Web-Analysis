@@ -44,8 +44,8 @@ public class TestExcelWriter {
 
  ExcelWriter testEx;
     @Test
-    public void testFileContents(){
-        
+    public void testFileCreation(){
+        assertThat("file ", equals(ReportWriter.nameFile() +".xlsx"))
 
 
     }
