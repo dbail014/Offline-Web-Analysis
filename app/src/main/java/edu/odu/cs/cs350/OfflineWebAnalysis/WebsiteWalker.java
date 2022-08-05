@@ -4,12 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.Vector;
 // import java.nio.file.Paths;
-
 // import org.jsoup.helper.Validate;
-
-// TODOs
-// Refactor code
-// Update documentation of to be in line with javadoc standards
 
 /**
  * Description...
@@ -21,7 +16,7 @@ import java.util.Vector;
 public class WebsiteWalker {
     
     // public static void main(String[] args) {
-    //     Validate.isTrue(args.length == 1, "usage: supply url to fetch");
+    //     // Validate.isTrue(args.length == 1, "usage: supply url to fetch");
     //     String stringPath = args[0];
     //     Path path = Paths.get(stringPath);
     //     WebsiteWalker site = new WebsiteWalker();
