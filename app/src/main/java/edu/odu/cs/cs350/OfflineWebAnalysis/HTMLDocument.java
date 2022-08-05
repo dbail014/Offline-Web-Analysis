@@ -6,6 +6,7 @@ import java.net.URL;
 import java.nio.file.Path;
 
 // import java.util.Arrays;
+
 // import org.jsoup.helper.Validate;
 // import java.io.IOException;
 // import java.net.URISyntaxException;
@@ -29,7 +30,6 @@ public class HTMLDocument {
     // // This method is for functionality testing only.
     // public static void main(String[] args) throws IOException, URISyntaxException {
     //     Validate.isTrue(args.length > 1, "usage: supply url to fetch");
-        
     //     Vector<URL> _urls = new Vector<URL>(0);
     //     String stringPath = args[0];
     //     String[] urlStrings = Arrays.copyOfRange(args, 1, args.length);

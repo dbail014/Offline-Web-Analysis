@@ -33,7 +33,6 @@ public class Website {
         String stringPath = args[0];
         
         String[] urlStrings = Arrays.copyOfRange(args, 1, args.length);
-        // System.out.println(urlStrings[1]);
 
         Path path = Paths.get(stringPath);
         Website site = new Website();
@@ -43,22 +42,21 @@ public class Website {
 
         site.setAllPages();
         Vector<HTMLDocument> allDocs = site.getAllPages();
-        int count = 1;
+
         for (HTMLDocument htmlDoc : allDocs) {
-            System.out.println(count + ": " + htmlDoc.getLocalPath().toString());
+            System.out.println(htmlDoc.getLocalPath().toString());
             Vector<Anchor> anchor = new Vector<Anchor>(htmlDoc.getAnchors());
-            // Vector<Image> image = new Vector<Image>(htmlDoc.getImages());
-            // Vector<Script> script = new Vector<Script>(htmlDoc.getScripts());
-            // Vector<Stylesheet> stylesheet = new Vector<Stylesheet>(htmlDoc.getStylesheets());
-            System.out.println("Anchor Vector " + count + ":");
+            Vector<Image> image = new Vector<Image>(htmlDoc.getImages());
+            Vector<Script> script = new Vector<Script>(htmlDoc.getScripts());
+            Vector<Stylesheet> stylesheet = new Vector<Stylesheet>(htmlDoc.getStylesheets());
+            System.out.println("Anchor Vector " + ":");
             System.out.println(anchor.toString());
-            // System.out.println("Image Vector " + count + ":");
-            // System.out.println(image.toString());
-            // System.out.println("Script Vector " + count + ":");
-            // System.out.println(script.toString());
-            // System.out.println("Stylesheet Vector " + count + ":");
-            // System.out.println(stylesheet.toString());
-            count++;
+            System.out.println("Image Vector " + ":");
+            System.out.println(image.toString());
+            System.out.println("Script Vector " + ":");
+            System.out.println(script.toString());
+            System.out.println("Stylesheet Vector " + ":");
+            System.out.println(stylesheet.toString());
         }
     }
 
