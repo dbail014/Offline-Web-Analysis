@@ -46,6 +46,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.poi/poi
     implementation 'org.apache.poi:poi:3.9'
+    
+    // https://mavenlibs.com/maven/dependency/com.cedarsoftware/json-io
+    implementation 'com.cedarsoftware:json-io:4.13.0'
 }
 
 jar {
