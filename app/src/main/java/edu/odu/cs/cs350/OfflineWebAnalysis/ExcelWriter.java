@@ -19,9 +19,15 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+
+ /** ..
+  *@author John Wasikye
+  */
 public class ExcelWriter extends ReportWriter {
 
+public ExcelWriter(){
 
+}
     public static void main(String[] args) throws Exception {
 
         //Create blank workbook
