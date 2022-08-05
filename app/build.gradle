@@ -190,10 +190,10 @@ task reportsAndStuff(dependsOn: [
     "jacocoTestReport",
     "jacocoIntegrationTestReport",
     "jacocoMergedTestReport",
-    // "checkstyleMain",
+    "checkstyleMain",
     "javadoc",
     "check",
-    // "spotbugsMain",
+    "spotbugsMain",
     "projectReport"])
 {
     description "Generate all reports and documentation for this project."
@@ -269,7 +269,7 @@ bake {
 //------------------------------------------------------------------------------
 // Deploy/Update Project Website on GitHub Pages
 //------------------------------------------------------------------------------
-def websiteRepo = "git@github.com:jameswright722/Gradle-2-Report-Website.git"
+def websiteRepo = "git@github.com:jameswright722/git-pages.git"
 
 task clearPages(type: Delete)
 {
