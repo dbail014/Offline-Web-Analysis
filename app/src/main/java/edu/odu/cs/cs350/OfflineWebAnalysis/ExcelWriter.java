@@ -10,13 +10,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import java.util.Vector;
+import java.util.Arrays;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
-/*import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;*/
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class ExcelWriter extends ReportWriter {
 
@@ -24,13 +25,13 @@ public class ExcelWriter extends ReportWriter {
     public static void main(String[] args) throws Exception {
 
         //Create blank workbook
-   //     XSSFWorkbook workbook = new XSSFWorkbook();
+      XSSFWorkbook workbook = new XSSFWorkbook();
         
         //Create a blank sheet
-   //     XSSFSheet spreadsheet = workbook.createSheet( " Employee Info ");
+      XSSFSheet spreadsheet = workbook.createSheet( " Employee Info ");
   
         //Create row object
-    //    XSSFRow row;
+      XSSFRow row;
 
         //declaring amount of rows, hardcoded to 4 until determined
         int tempSize = 4;
@@ -44,21 +45,32 @@ public class ExcelWriter extends ReportWriter {
         Vector<Image> image = new Vector<Image>(htmlDoc.getImages());
         Vector<Script> script = new Vector<Script>(htmlDoc.getScripts());
 
+        String[] urlStrings = Arrays.copyOfRange(args, 1, args.length);
+
         String stringPath = args[0];
         Path path = Paths.get(stringPath);
-        HTMLDocument htmlDoc = new DocumentParser(path).build();
+        
 
         Website site = new Website();
-        Vector<HTMLDocument> pages = site.getAllPages();
+        site.setBasePath(path);
+        site.setUrls(urlStrings);
+        site.setAllPages();
+        Vector<HTMLDocument> docs = site.getAllPages();
 
 
-        //getting the counts
-        int pagecount = pages.size() ;
-        String imagecount =Integer.toString(htmlDoc.getImages().size());
-        int cssCount =1;
-        String scriptCount = Integer.toString(htmlDoc.getScripts().size());
+        //getting the page count
+        int pagecount = 0;
+        for(HTMLDocument htmldocInd : docs)
+        {
+         pagecount++;
+        }
+   
+        //  getting stylesheet count = cssCount
+        int cssCount;
+        int imagecount;
+        int scriptCount;
         int linkIPCount;
-        int linkINCount;
+        int linkINCount=0;
         int linkEXCount;
 
         
@@ -76,10 +88,43 @@ public class ExcelWriter extends ReportWriter {
          for(int x=0; x<pagecount ; x++)
          {
 
+            //adding css counts
+            cssCount = site.getAllPages().get(x).getStylesheets().size();
+            //adding image counts
+            imagecount = site.getAllPages().get(x).getImages().size();
+            //adding script counts
+            scriptCount = site.getAllPages().get(x).getScripts().size();
+            // adding internal, external and intra page links
+            
+            for(int y=0 ; x<site.getAllPages().get(x).getAnchors().size(); x++)
+            {
+            if(site.getAllPages().get(x).getAnchors().get(y).getClassification().toString()== "internal")
+               {
+                  linkINCount++;
+               }
+
+               if(site.getAllPages().get(x).getAnchors().get(y).getClassification().toString()== "external")
+               {
+                  linkEXCount++;
+               }
+               if(site.getAllPages().get(x).getAnchors().get(y).getClassification().toString()== "intrapage")
+               {
+                  linkIPCount++;
+               }
+            }
+
+  
+
+
+
             empinfo.put( rowcount, new Object[] {
-                page, imagecount, "#CSS",scriptCount,"#Links (Intra-Page)","#Links(Internal)","#Links (External)" });
+                page, imagecount, cssCount,scriptCount,linkIPCount,linkINCount,linkEXCount });
                 
                 page++;
+            
+            linkINCount =0;
+            linkEXCount =0;
+            linkIPCount =0;
          }
 
          //Iterate over data and write to sheet
@@ -87,13 +132,13 @@ public class ExcelWriter extends ReportWriter {
          int rowid = 0;
       
           for (String key : keyid) {
-     //       row = spreadsheet.createRow(rowid++);
+            row = spreadsheet.createRow(rowid++);
             Object [] objectArr = empinfo.get(key);
             int cellid = 0;
          
          for (Object obj : objectArr){
-      //      Cell cell = row.createCell(cellid++);
-      //      cell.setCellValue((String)obj);
+           Cell cell = row.createCell(cellid++);
+           cell.setCellValue((String)obj);
          }
       }
 
@@ -102,9 +147,9 @@ public class ExcelWriter extends ReportWriter {
       FileOutputStream out = new FileOutputStream(
          new File(fileName +".xlsx"));
       
-   //   workbook.write(out);
+     workbook.write(out);
       out.close();
-      System.out.println("Writesheet.xlsx written successfully");
+  
    }
 
     
